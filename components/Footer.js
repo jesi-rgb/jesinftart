@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <>
-      <footer className="text-gray-400 font-titles mx-auto max-w-screen-sm">
-        <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+      <footer className="text-gray-400 font-titles mx-auto">
+        <div className="container  py-8 mx-auto flex items-center sm:flex-row flex-col">
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-400">
             <span className="ml-3 text-xl">Jesi NFT Market Place</span>
           </a>
