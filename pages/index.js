@@ -19,7 +19,7 @@ export default function Home() {
                 <p className="leading-relaxed text-base">
                   Hola alex esto es una prueba que dices te mola?
                 </p>
-                <a className="mt-3 text-gray-200 inline-flex items-center">
+                <a className="mt-3 text-gray-600 inline-flex items-center">
                   Learn More
                 </a>
               </div>
