@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import PieceBody from "@/components/PieceBody";
-import { hashes } from "pages/hashes";
+import { hashes } from "@/components/hashes";
 
 const Piece = ({ link, slug }) => {
   return (
@@ -33,7 +33,6 @@ export const getStaticPaths = async () => {
       slug: h,
     },
   }));
-  console.log(paths);
   return {
     paths,
     fallback: false,
