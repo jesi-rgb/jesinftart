@@ -11,5 +11,8 @@ module.exports = {
       titles: ["BioRhyme", "system-ui"],
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    // ...
+  ],
 };
