@@ -9,7 +9,7 @@ export default function Footer() {
           <span className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2  sm:py-2 sm:mt-0">
             <a
               href="https://twitter.com/jesi_rgb"
-              className="text-gray-500 ml-1 hover:text-gray-300"
+              className="text-gray-500 ml-1 hover:text-gray-300 transition-colors"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -19,7 +19,7 @@ export default function Footer() {
           <span className="text-sm sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
             <a
               href="https://github.com/jesi-rgb"
-              className="text-gray-500 ml-1 hover:text-gray-300"
+              className="text-gray-500 ml-1 hover:text-gray-300 transition-colors"
               rel="noopener noreferrer"
               target="_blank"
             >
