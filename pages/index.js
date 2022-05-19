@@ -7,12 +7,12 @@ export default function Home() {
   return (
     <Layout>
       <section className="text-gray-300 font-body">
-        <div className="container px-5 py-24 mx-auto">
+        <div className="container px-5 mt-24 mx-auto">
           <h1 className="text-6xl drop-shadow-xl font-bold font-titles text-center text-gray-100 mb-20">
             Jesi NFT Market Place
           </h1>
 
-          <div className="flex flex-col mx-auto w-full rounded-md drop-shadow-2xl lg:flex-row overflow-x-scroll scrollbar-hide space-x-10">
+          <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl lg:mx-auto lg:w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">
             <IPFSImage
               hash={
                 "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"

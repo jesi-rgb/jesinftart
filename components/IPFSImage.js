@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function IPFSImage({ hash }) {
   return (
     <>
-      <div className="w-max flex-shrink-0">
+      <div className="lg:w-max lg:flex-shrink-0">
         <div className="flex-col ">
           <a href={`https://${hash}.ipfs.infura-ipfs.io/`}>
             <img
