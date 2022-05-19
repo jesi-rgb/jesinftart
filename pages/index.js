@@ -8,7 +8,7 @@ export default function Home() {
       <section className="text-gray-300 font-body">
         <div className="container px-5 mt-24 mx-auto">
           <h1 className="text-6xl drop-shadow-xl font-bold font-titles text-center text-gray-100 mb-20">
-            Jesi NFT Market Place
+            WebOS
           </h1>
 
           <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl lg:mx-auto lg:w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">

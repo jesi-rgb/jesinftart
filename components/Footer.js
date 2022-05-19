@@ -4,9 +4,9 @@ export default function Footer() {
       <footer className="text-gray-400 font-titles mx-auto">
         <div className="container  py-8 mx-auto flex items-center sm:flex-row flex-col">
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-400">
-            <span className="ml-3 text-xl">Jesi NFT Market Place</span>
+            <span className="ml-3 text-xl">WebOS</span>
           </a>
-          <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2  sm:py-2 sm:mt-0">
+          <span className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2  sm:py-2 sm:mt-0">
             <a
               href="https://twitter.com/jesi_rgb"
               className="text-gray-500 ml-1 hover:text-gray-300"
@@ -15,8 +15,8 @@ export default function Footer() {
             >
               @jesi_rgb
             </a>
-          </p>
-          <p className="text-sm sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
+          </span>
+          <span className="text-sm sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
             <a
               href="https://github.com/jesi-rgb"
               className="text-gray-500 ml-1 hover:text-gray-300"
@@ -25,7 +25,7 @@ export default function Footer() {
             >
               /jesi-rgb
             </a>
-          </p>
+          </span>
         </div>
       </footer>
     </>
