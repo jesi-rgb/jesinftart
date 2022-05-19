@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-export default function IPFSImage({ hash }) {
-  hash = hash.content;
+import Image from "next/image";
+export default function CarouselImage({ hash }) {
   return (
     <>
       <div className="lg:w-max lg:flex-shrink-0 text-gray-600 hover:text-gray-300 transition-colors">
         <div className="flex-col ">
-          <a href={`https://${hash}.ipfs.infura-ipfs.io/`}>
+          <a href={`/pieces/${hash}`}>
             <img
               src={`https://${hash}.ipfs.infura-ipfs.io/`}
               alt=""
@@ -13,8 +13,15 @@ export default function IPFSImage({ hash }) {
               height={500}
             />
           </a>
+          <div className="w-48 font-body truncate ...">{shrinkHash(hash)}</div>
         </div>
       </div>
     </>
   );
+}
+
+function shrinkHash(hash) {
+  let end = hash.slice(hash.length - 4);
+  let start = hash.slice(0, 4);
+  return start + "..." + end;
 }
