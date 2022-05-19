@@ -25,6 +25,5 @@ export default function IPFSImage({ hash }) {
 function shrinkHash(hash) {
   let end = hash.slice(hash.length - 4);
   let start = hash.slice(0, 4);
-  console.log(end + "..." + start);
   return start + "..." + end;
 }
