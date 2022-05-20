@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <footer className="text-gray-400 font-titles mx-auto mt-10">
-        <div className="container py-8 mx-auto flex items-center sm:flex-row flex-col space-y-2 lg:space-y-0">
+        <div className="container py-8 mx-auto flex items-center sm:flex-row flex-col space-y-2 md:space-y-0">
           <div className="mb-4 lg:mb-0 flex title-font font-medium items-center md:justify-start justify-center text-gray-400 text-xl hover:text-gray-300 transition-colors">
             <Link href="/">WebOS</Link>
           </div>

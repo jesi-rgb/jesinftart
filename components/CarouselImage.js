@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
+import { shrinkHash } from "@/lib/utils";
 export default function CarouselImage({ hash }) {
   return (
     <>
@@ -18,10 +18,4 @@ export default function CarouselImage({ hash }) {
       </div>
     </>
   );
-}
-
-function shrinkHash(hash) {
-  let end = hash.slice(hash.length - 4);
-  let start = hash.slice(0, 4);
-  return start + "..." + end;
 }
