@@ -4,10 +4,6 @@ import Layout from "../components/Layout";
 import { useEthers } from "@usedapp/core";
 
 export default function Main() {
-  const { account, chainId, activateBrowserWallet, deactivate, error } =
-    useEthers();
-  const isConnected = account !== undefined;
-
   return (
     <Layout>
       <div className="text-slate-300 font-body">
