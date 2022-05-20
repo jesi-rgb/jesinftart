@@ -41,11 +41,11 @@ export default function PieceBody(slug) {
 
           {/* OWNER */}
           <div className="flex flex-row font-body">
-            <div className="flex text-gray-200 font-titles w-1/4 lg:w-screen">
+            <div className="flex text-gray-200 font-titles w-full lg:w-screen">
               Owner
             </div>
             <div>
-              <div className="flex text-gray-400 w-3/4 lg:w-full truncate ...">
+              <div className="flex text-gray-400 lg:w-full truncate ...">
                 {shrinkHash("0000002304990291348102934801293481029348")}
               </div>
             </div>
@@ -53,11 +53,11 @@ export default function PieceBody(slug) {
 
           {/* HASH */}
           <div className="flex flex-row">
-            <div className="text-gray-200 font-titles w-1/4 lg:w-screen">
+            <div className="text-gray-200 font-titles w-full lg:w-screen">
               {" "}
               Hash
             </div>
-            <div className="text-gray-400 font-body w-3/4">
+            <div className="text-gray-400 font-body">
               {" "}
               {shrinkHash(slug.content)}
             </div>
