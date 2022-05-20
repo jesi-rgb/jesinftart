@@ -4,7 +4,7 @@ import { shrinkHash } from "@/lib/utils";
 export default function PieceBody(slug) {
   return (
     <>
-      <div className="flex flex-col items-center mx-auto max-w-md lg:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
+      <div className="flex flex-col items-center mx-auto max-w-sm lg:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
         {/* IMAGE AND TITLE */}
         <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
           <h1 className="text-5xl lg:text-6xl font-titles text-gray-100 mx-auto">
