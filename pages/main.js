@@ -10,9 +10,9 @@ export default function Main() {
 
   return (
     <Layout>
-      <div className="text-gray-300 font-body">
+      <div className="text-slate-300 font-body">
         <div className="mt-12 mx-auto lg:max-w-min sm:max-w-max">
-          <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-gray-100 mb-10">
+          <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-slate-100 mb-10">
             WebOS
           </h1>
 
