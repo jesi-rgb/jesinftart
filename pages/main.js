@@ -2,23 +2,15 @@ import CarouselImage from "@/components/CarouselImage";
 import { hashes } from "@/components/hashes";
 import Layout from "../components/Layout";
 import { useEthers } from "@usedapp/core";
+import ConnectButton from "@/components/ConnectButton"
 
 export default function Main() {
     const { account, chainId, activateBrowserWallet, deactivate, error } = useEthers()
     const isConnected = account !== undefined
 
-    const decorator = () => {
-        console.log("aaa")
-        console.log(error)
-        console.log(account)
-        console.log(chainId)
-        console.log(activateBrowserWallet)
-        activateBrowserWallet()
-    }
-
     return (
         <Layout>
-            <button className="text-white" onClick={decorator}>Conect wallet</button>
+            <ConnectButton></ConnectButton>
 
             <div className="text-gray-300 font-body">
                 <div className="px-5 mt-12 mx-auto lg:max-w-min sm:max-w-max">

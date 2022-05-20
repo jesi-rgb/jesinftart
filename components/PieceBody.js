@@ -1,9 +1,12 @@
 import IPFSImage from "./IPFSImage";
 import { shrinkHash } from "@/lib/utils";
+import MintButton from "./MintButton";
+import ConnectButton from "./ConnectButton";
 
 export default function PieceBody(slug) {
   return (
     <>
+      <ConnectButton />
       <div className="flex flex-col items-center mx-auto max-w-md lg:max-w-max lg:flex-row lg:space-y-0 lg:space-x-44">
         {/* Image and hash */}
         <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:w-1/2 lg:mb-0">
@@ -54,6 +57,7 @@ export default function PieceBody(slug) {
             </div>
           </div>
         </div>
+        <MintButton />
       </div>
     </>
   );
