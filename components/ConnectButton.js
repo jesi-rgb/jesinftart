@@ -10,7 +10,7 @@ export default function ConnectButton() {
     <div className="font-body text-gray-400">{shrinkHash(account)}</div>
   ) : (
     <button
-      className="text-gray-300 font-body bg-gray-600 hover:bg-gray-500 transition-colors rounded-lg px-3 py-1 border-2 border-l-gray-300"
+      className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600"
       onClick={activateBrowserWallet}
     >
       Connect

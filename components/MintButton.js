@@ -31,7 +31,7 @@ export default function MintButton() {
 
   return (
     <button
-      className="text-gray-300 font-body bg-gray-600 hover:bg-gray-500 transition-colors rounded-lg px-3 py-1 border-2 border-l-gray-300 w-full"
+      className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600 w-full"
       onClick={mint}
     >
       Mint NFT
