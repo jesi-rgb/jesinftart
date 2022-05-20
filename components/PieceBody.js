@@ -64,8 +64,10 @@ export default function PieceBody(slug) {
               {shrinkHash(slug.content)}
             </div>
           </div>
+          <div className="w-full">
+            <MintButton />
+          </div>
         </div>
-        <MintButton />
       </div>
     </>
   );
