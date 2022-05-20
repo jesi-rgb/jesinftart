@@ -12,91 +12,9 @@ export default function Home() {
           </h1>
 
           <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiarr6v3ajdv5iwiwmehmcn4tqxpdpnenuokrgvon5odg6ujev2xvi"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiarr6v3ajdv5iwiwmehmcn4tqxpdpnenuokrgvon5odg6ujev2xvi"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeidwzynbvhtc6qspgkn7amkgd4nacubpxoezul4qroiqdf2vympr3u"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
-            <CarouselImage
-              hash={
-                "bafybeiaobfbg56q6vcmcs7o3qya4enftunly36akfzei4oyznwv4633o54"
-              }
-            />
+            {hashes.map((h) => {
+              return <CarouselImage key={h} hash={h} />;
+            })}
           </div>
         </div>
       </div>
