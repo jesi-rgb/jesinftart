@@ -17,6 +17,13 @@ export default function PieceBody(slug) {
 
     getData();
   }, []);
+  console.log(ipfsData);
+
+  const title = ipfsData?.name || "Title";
+
+  const desc =
+    ipfsData?.description ||
+    "Lorem ipsum dolor sit amuptate velit esse cillum dolore eu fugiatnulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
   return (
     <>
@@ -24,7 +31,7 @@ export default function PieceBody(slug) {
         {/* IMAGE AND TITLE */}
         <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
-            Title
+            {title}
           </h1>
           <div className="mx-auto">
             <IPFSImage hash={slug} />
@@ -35,12 +42,7 @@ export default function PieceBody(slug) {
         <div className="space-y-4 lg:w-full lg:inline-block">
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
-            <div className="text-slate-400 font-body text-justify">
-              {" "}
-              Lorem ipsum dolor sit amuptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.{" "}
-            </div>
+            <div className="text-slate-400 font-body text-justify">{desc}</div>
           </div>
 
           {/* PRICE */}
