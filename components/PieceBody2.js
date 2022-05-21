@@ -34,20 +34,29 @@ export default function PieceBody2({ contract_address, token_id, slug }) {
       args: [token_id],
     }) ?? {};
 
-  console.log(json_uri);
+  //   console.log(json_uri ? json_uri[0] : undefined);
 
+  console.log(json_uri);
   const [ipfsData, setIpfsData] = useState();
+
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(json_uri);
+      console.log("Getting in getdata");
+      const token_uri_response = await fetch(json_uri[0]);
 
-      const data = await response.json();
+      setIpfsData(await token_uri_response.json());
 
-      setIpfsData(data);
+      //   const response = await fetch(json_uri);
+
+      //   const data = await response.json();
+
+      //   setIpfsData(data);
     };
-
-    getData();
-  }, []);
+    console.log("Getting in useEffect");
+    if (json_uri !== undefined) {
+      getData();
+    }
+  }, [json_uri]);
 
   console.log(ipfsData);
 
@@ -60,7 +69,7 @@ export default function PieceBody2({ contract_address, token_id, slug }) {
             Title
           </h1>
           <div className="mx-auto">
-            <IPFSImage hash={slug} />
+            <IPFSImage url={ipfsData?.image} />
           </div>
         </div>
 
