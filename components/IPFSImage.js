@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 export default function IPFSImage({ hash }) {
-  hash = hash.content;
   return (
     <>
       <div className="lg:w-max lg:flex-shrink-0 text-gray-600 hover:text-gray-300 transition-colors">
