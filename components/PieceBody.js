@@ -17,15 +17,21 @@ export default function PieceBody(slug) {
 
     getData();
   }, []);
+  console.log(ipfsData);
+
+  const title = ipfsData?.name || "Title";
+
+  const desc =
+    ipfsData?.description ||
+    "Lorem ipsum dolor sit amuptate velit esse cillum dolore eu fugiatnulla pariatur. Excepteur sint occaecat cupidatat non proident,sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
   return (
     <>
-      <ConnectButton />
-      <div className="flex flex-col items-center mx-auto max-w-md lg:max-w-max lg:flex-row lg:space-y-0 lg:space-x-44">
-        {/* Image and hash */}
-        <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:w-1/2 lg:mb-0">
-          <h1 className="text-4xl lg:text-6xl font-titles text-gray-100 mx-auto">
-            Title
+      <div className="flex flex-col items-center mx-auto max-w-sm xl:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
+        {/* IMAGE AND TITLE */}
+        <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
+          <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
+            {title}
           </h1>
           <div className="mx-auto">
             <IPFSImage hash={slug} />
@@ -34,17 +40,8 @@ export default function PieceBody(slug) {
         {/* NFT DATA */}
         <div className="flex flex-col space-y-6 w-full lg:w-1/2">
           <div>
-            <div className="text-gray-200 font-titles"> Description</div>
-            <div className="text-gray-400 font-body text-justify">
-              {" "}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.{" "}
-            </div>
+            <div className="text-slate-200 font-titles"> Description</div>
+            <div className="text-slate-400 font-body text-justify">{desc}</div>
           </div>
           <div className="flex flex-row font-body">
             <div className="flex text-gray-200 font-titles">Price</div>
