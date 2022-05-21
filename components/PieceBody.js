@@ -1,9 +1,23 @@
 import IPFSImage from "./IPFSImage";
 import { shrinkHash } from "@/lib/utils";
 import MintButton from "./MintButton";
-import ConnectButton from "./ConnectButton";
+import { useState, useEffect } from "react";
 
 export default function PieceBody(slug) {
+  const [ipfsData, setIpfsData] = useState();
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        "/api/nftinfo?hash=bafybeid7sjqlgojjauron7up723uhaac5rsxlkmd3c4sjtxjv5g6ws3xgy"
+      );
+      const data = await response.json();
+
+      setIpfsData(data);
+    };
+
+    getData();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col items-center mx-auto max-w-sm xl:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
