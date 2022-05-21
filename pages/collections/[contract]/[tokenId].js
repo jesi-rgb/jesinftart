@@ -1,64 +1,48 @@
-import IPFSImage from "./IPFSImage";
+import IPFSImage from "@/components/IPFSImage";
 import { shrinkHash } from "@/lib/utils";
-import MintButton from "./MintButton";
-import ConnectButton from "./ConnectButton";
+import MintButton from "@/components/MintButton";
 import JesiArt from "@/contracts/JesiArt.json";
 import { constants, utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import { useContractFunction, useCall, useEthers } from "@usedapp/core";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function PieceBody2({ contract_address, token_id, slug }) {
-  //   const { account, chainId, activateBrowserWallet, deactivate, error } =
-  //     useEthers();
-  //   const isConnected = account !== undefined;
+export default function Ntf() {
+  const router = useRouter();
+  const { contract, tokenId } = router.query;
+  const [ipfsData, setIpfsData] = useState(undefined);
+  const [nftUri, setNftUri] = useState(undefined);
 
-  const jesiArtAbi = JesiArt.abi;
-  const jesiArtInterface = new utils.Interface(jesiArtAbi);
-
-  const jesiArtContract = new Contract(contract_address, jesiArtInterface);
-
-  //   const { send: tokenURISend, state: tokenURIState } = useContractFunction(
-  //     jesiArtContract,
-  //     "tokenURI",
-  //     { transactionName: "Get token URI" }
-  //   );
-
-  //   const token_uri = tokenURISend(token_id);
-  //   console.log(token_uri);
-
-  const { value: json_uri } =
-    useCall({
-      contract: jesiArtContract,
-      method: "tokenURI",
-      args: [token_id],
-    }) ?? {};
-
-  //   console.log(json_uri ? json_uri[0] : undefined);
-
-  console.log(json_uri);
-  const [ipfsData, setIpfsData] = useState();
-
+  // Get the token URI in JSON format
   useEffect(() => {
     const getData = async () => {
-      console.log("Getting in getdata");
-      const token_uri_response = await fetch(json_uri[0]);
-
-      setIpfsData(await token_uri_response.json());
-
-      //   const response = await fetch(json_uri);
-
-      //   const data = await response.json();
-
-      //   setIpfsData(data);
+      const response = await fetch(
+        `../../api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
+      );
+      setNftUri(await response.text());
     };
-    console.log("Getting in useEffect");
-    if (json_uri !== undefined) {
+    if (contract !== undefined && tokenId !== undefined) {
       getData();
     }
-  }, [json_uri]);
+  }, [contract, tokenId]);
 
-  console.log(ipfsData);
+  // Get the JSON values form the URI obtained above
+  useEffect(() => {
+    const getData = async () => {
+      const token_uri_response = await fetch(nftUri.slice(1, -1));
+
+      setIpfsData(await token_uri_response.json());
+    };
+    if (nftUri !== undefined) {
+      getData();
+    }
+  }, [nftUri]);
+
+  let name = ipfsData?.name;
+  let description = ipfsData?.description;
+  let img_uri = ipfsData?.image;
+  let attributes = ipfsData?.attributes;
 
   return (
     <>
@@ -66,10 +50,10 @@ export default function PieceBody2({ contract_address, token_id, slug }) {
         {/* IMAGE AND TITLE */}
         <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
-            Title
+            {name}
           </h1>
           <div className="mx-auto">
-            <IPFSImage url={ipfsData?.image} />
+            <IPFSImage url={img_uri} />
           </div>
         </div>
 
@@ -78,10 +62,7 @@ export default function PieceBody2({ contract_address, token_id, slug }) {
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
             <div className="text-slate-400 font-body text-justify">
-              {" "}
-              Lorem ipsum dolor sit amuptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.{" "}
+              {description}
             </div>
           </div>
 
@@ -115,7 +96,10 @@ export default function PieceBody2({ contract_address, token_id, slug }) {
               {" "}
               Hash
             </div>
-            <div className="text-slate-400 font-body"> {shrinkHash(slug)}</div>
+            <div className="text-slate-400 font-body">
+              {" "}
+              {shrinkHash("TODOadsfsdfdsfsdfsdfsdfds")}
+            </div>
           </div>
           <div className="w-full">
             <MintButton />
