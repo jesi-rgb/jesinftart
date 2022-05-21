@@ -37,53 +37,38 @@ export default function PieceBody(slug) {
             <IPFSImage hash={slug} />
           </div>
         </div>
-
         {/* NFT DATA */}
-        <div className="space-y-4 lg:w-full lg:inline-block">
+        <div className="flex flex-col space-y-6 w-full lg:w-1/2">
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
             <div className="text-slate-400 font-body text-justify">{desc}</div>
           </div>
-
-          {/* PRICE */}
           <div className="flex flex-row font-body">
-            <div className="flex text-slate-200 font-titles w-1/4 lg:w-screen">
-              Price
-            </div>
-            <div className="w-3/4 flex flex-row space-x-3 lg:w-full lg:items-end">
-              <div className="w-full"></div>
-              <div className="text-slate-400">50</div>
-              <div className="text-slate-400">ETH</div>
-            </div>
+            <div className="flex text-gray-200 font-titles">Price</div>
+            <div className="flex text-gray-400 ml-4">50</div>
+            <div className="flex text-gray-400 ml-4">ETH</div>
           </div>
-
-          {/* OWNER */}
           <div className="flex flex-row font-body">
-            <div className="flex text-slate-200 font-titles w-full lg:w-screen">
-              Owner
-            </div>
+            <div className="flex text-gray-200 font-titles">Owner</div>
+
             <div>
-              <div className="flex text-slate-400 lg:w-full truncate ...">
+              <div className="flex text-gray-400 ml-4 truncate ...">
                 {shrinkHash("0000002304990291348102934801293481029348")}
+              </div>
+              <div className="text-gray-400 ml-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                0000002304990291348102934801293481029348
               </div>
             </div>
           </div>
-
-          {/* HASH */}
-          <div className="flex flex-row">
-            <div className="text-slate-200 font-titles w-full lg:w-screen">
-              {" "}
-              Hash
-            </div>
-            <div className="text-slate-400 font-body">
+          <div className="">
+            <div className="text-gray-200 font-titles"> Hash:</div>
+            <div className="text-gray-400 font-body text-xs lg:text-lg w-min">
               {" "}
               {shrinkHash(slug.content)}
             </div>
           </div>
-          <div className="w-full">
-            <MintButton />
-          </div>
         </div>
+        <MintButton />
       </div>
     </>
   );

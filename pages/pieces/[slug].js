@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
-import PieceBody from "@/components/PieceBody";
+import PieceBody2 from "@/components/PieceBody2";
 import { hashes } from "@/components/hashes";
 
 const Piece = ({ link, slug }) => {
@@ -11,7 +11,11 @@ const Piece = ({ link, slug }) => {
         <meta title="description" content="" />
       </Head>
       <Layout>
-        <PieceBody content={slug} />
+        <PieceBody2
+          slug={slug}
+          contract_address={"0xbbb8428f3e763af53Fa526a054d4F474cED74b78"}
+          token_id={"2"}
+        />
       </Layout>
     </>
   );
