@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
-        `../../api/getTokenIds?contractAddress=${contract}`
+        `/api/getTokenIds?contractAddress=${contract}`
       );
       const events = await response.json();
       let tmp_array = [];
@@ -34,7 +34,7 @@ export default function Home() {
       for (let tokenId in tokenIds) {
         // Get tokenURI
         let response = await fetch(
-          `../../api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
+          `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
         );
         let tokenURI = await response.text();
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end

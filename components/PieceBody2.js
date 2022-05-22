@@ -12,7 +12,7 @@ export default function Ntf({ contract, tokenId }) {
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
-        `../../api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
+        `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
       setNftUri(await response.text());
     };
