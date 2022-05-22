@@ -13,7 +13,7 @@ const Piece = ({ link, slug }) => {
       <Layout>
         <PieceBody2
           slug={slug}
-          contract_address={"0xbbb8428f3e763af53Fa526a054d4F474cED74b78"}
+          contract_address={"0xbbb8428f3e763af53Fa526a054d4F474cED74b78"} //TODO
           token_id={"2"}
         />
       </Layout>
