@@ -62,6 +62,7 @@ export default function Home() {
             {Object.keys(tokenIdToImg).map((tokenId) => {
               return (
                 <CarouselImage2
+                  key={tokenId}
                   contractAddress={contract}
                   tokenId={tokenId}
                   img={tokenIdToImg[tokenId]}
