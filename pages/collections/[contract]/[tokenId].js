@@ -1,12 +1,9 @@
 import IPFSImage from "@/components/IPFSImage";
 import { shrinkHash } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
-import JesiArt from "@/contracts/JesiArt.json";
-import { constants, utils } from "ethers";
-import { Contract } from "@ethersproject/contracts";
-import { useContractFunction, useCall, useEthers } from "@usedapp/core";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import React from "react";
 
 export default function Ntf() {
   const router = useRouter();
