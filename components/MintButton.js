@@ -1,6 +1,6 @@
 import { useContractFunction, useEthers } from "@usedapp/core";
 import JesiArt from "@/contracts/JesiArt.json";
-import { constants, utils } from "ethers";
+import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import { JESI_ART_CONTRACT_ADDRESS } from "@/lib/utils";
 

@@ -1,5 +1,4 @@
 import CarouselImage2 from "@/components/CarouselImage2";
-import { hashes } from "@/components/hashes";
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 
