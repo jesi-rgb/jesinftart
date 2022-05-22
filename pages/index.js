@@ -22,7 +22,6 @@ export default function Home() {
       setTokenIds(tmp_array);
     };
     if (contract !== undefined) {
-      console.log("usefect");
       getData();
     }
   }, [contract]);
@@ -50,9 +49,6 @@ export default function Home() {
       getData(tokenIds);
     }
   }, [tokenIds]);
-
-  console.log(tokenIds);
-  console.log(tokenIdToImg);
 
   return (
     <Layout>
