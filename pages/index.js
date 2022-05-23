@@ -8,6 +8,19 @@ export default function Home() {
   const [tokenIdToImg, setTokenIdToImg] = useState({});
   const [imgUrl, setImgUrl] = useState(undefined);
 
+  const isURL = (str) => {
+    var pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
+    return pattern.test(str);
+  };
+
   // Get the token Ids
   useEffect(() => {
     const getData = async () => {
@@ -38,8 +51,22 @@ export default function Home() {
         let tokenURI = await response.text();
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
 
+        if (tokenURI === "") {
+          console.error(
+            `The NFT ${tokenId} of the contract ${contract} has an empty URI`
+          );
+          continue;
+        }
+
         // Get NFT JSON
         response = await fetch(tokenURI);
+        if (!response.ok) {
+          console.error(
+            `The NFT ${tokenId} of the contract ${contract} couldn't retrieve the JSON in URI. 
+            Received response: ${response.status}. URI: ${tokenURI}`
+          );
+          continue;
+        }
         let json = await response.json();
         tmp_dict[tokenId] = json.image;
       }
