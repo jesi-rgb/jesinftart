@@ -10,6 +10,8 @@ import { JESI_ART_CONTRACT_ADDRESS } from "@/lib/utils";
 import { Snackbar, CircularProgress } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { Alert } from "@material-ui/lab";
+import SuccessAlert from "./SucessAlert";
+// import "tw-elements";
 
 export default function MintButton({ nftUri: nftUri }) {
   const minting_tx_name = "Mint NFT";
@@ -39,16 +41,26 @@ export default function MintButton({ nftUri: nftUri }) {
         }}
       >
         {isMining ? (
-          <>
-            Minting... <CircularProgress size={26} />{" "}
-          </>
+          <span className="">
+            Minting...{" "}
+            <div
+              className="spinner-grow inline-block w-4 h-4 bg-current rounded-full opacity-0"
+              role="status"
+            ></div>
+          </span>
         ) : (
           "Mint NFT"
         )}
       </button>
-      <Snackbar open={mintState.status === "Success"} autoHideDuration={5000}>
+      {/* <Snackbar open={mintState.status === "Success"} autoHideDuration={200}>
         <Alert severity="success">Mint approved!</Alert>
-      </Snackbar>
+      </Snackbar> */}
+
+      {mintState.status === "Success" ? (
+        <SuccessAlert id="hideMe" />
+      ) : (
+        <div></div>
+      )}
     </>
   );
 } // TODO change snackbar and alert because it throws an exception and you can make it more beautiful, Jesi
