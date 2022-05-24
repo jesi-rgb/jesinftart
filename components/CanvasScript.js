@@ -24,7 +24,24 @@ export default function CanvasScript({ url }) {
   console.log("canvasscript", content);
   return (
     <>
-      <div>hola</div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `
+      <html lang="en">
+      <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta charset="utf-8" />
+      </head>
+      <body>
+        <script src="${url}"></script>
+      </body>
+    </html>
+
+      `,
+        }}
+      />
     </>
   );
 }
