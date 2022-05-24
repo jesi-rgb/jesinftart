@@ -21,7 +21,7 @@ export default function Ntf({ contract, tokenId }) {
         `/api/callBlockchain?contractAddress=${contract}&method_name=ownerOf&args=[${tokenId}]`
       );
 
-      setOwner(await owner_of_response.text());
+      setOwner((await owner_of_response.text()).slice(1, -1));
     };
     if (contract !== undefined && tokenId !== undefined) {
       getData();
