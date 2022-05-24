@@ -3,6 +3,7 @@ import { shrinkHash } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
+import Attribute from "./Attribute";
 
 export default function Ntf({ contract, tokenId }) {
   const [ipfsData, setIpfsData] = useState(undefined);
@@ -38,6 +39,11 @@ export default function Ntf({ contract, tokenId }) {
   let description = ipfsData?.description;
   let img_uri = ipfsData?.image;
   let attributes = ipfsData?.attributes;
+  //   const repeat = (arr, n) => [].concat(...Array(n).fill(arr));
+  //   attributes = repeat(attributes ?? [{ Mod: 11 }], 4);
+  let length = attributes?.length / 3;
+
+  console.log(attributes);
 
   return (
     <>
@@ -54,6 +60,15 @@ export default function Ntf({ contract, tokenId }) {
 
         {/* NFT DATA */}
         <div className="space-y-4 lg:w-full lg:inline-block">
+          <div className="grid grid-flow-row grid-rows-{length} grid-cols-3 gap-3">
+            {attributes?.map((a) => (
+              <Attribute
+                key={a.trait_type + a.value}
+                trait_type={a.trait_type}
+                value={a.value}
+              />
+            ))}
+          </div>
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
             <div className="text-slate-400 font-body text-justify">
