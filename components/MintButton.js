@@ -43,14 +43,12 @@ export default function MintButton({}) {
   useEffect(() => {
     const pushAndMint = async () => {
       const ipfs_response = await fetch(
-        `/api/jsonToIpfs?jsonURI=${JSON.stringify(nftJson)}`
+        `/api/jsonToIpfs?stringJson=${JSON.stringify(nftJson)}`
       );
 
-      let ipfs_hash = ipfs_response["IpfsHash"];
+      let ipfs_hash = (await ipfs_response.json())["IpfsHash"];
       let ipfs_json_uri = `https://ipfs.io/ipfs/${ipfs_hash}`;
       mintSend(ipfs_json_uri);
-
-      console.log(ipfs_json_uri);
 
       setPushJsonToIpfs(false);
     };
