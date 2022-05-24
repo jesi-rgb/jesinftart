@@ -47,7 +47,7 @@ export default function CanvasPiece({ contract, tokenId }) {
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
             {name}
           </h1>
-          <div className="mx-auto">
+          <div className="relative mx-auto mr-96">
             <CanvasSketch />
           </div>
         </div>
