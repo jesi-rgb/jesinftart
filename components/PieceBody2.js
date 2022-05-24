@@ -31,7 +31,7 @@ export default function Ntf({ contract, tokenId }) {
   // Get the JSON values form the URI obtained above
   useEffect(() => {
     const getData = async () => {
-      const token_uri_response = await fetch(nftUri.slice(1, -1));
+      const token_uri_response = await fetch(nftUri);
 
       setIpfsData(await token_uri_response.json());
     };
@@ -103,7 +103,7 @@ export default function Ntf({ contract, tokenId }) {
             </div>
           </div>
           <div className="w-full">
-            <MintButton />
+            {nftUri ? <MintButton nftUri={nftUri} /> : <></>}
           </div>
         </div>
       </div>

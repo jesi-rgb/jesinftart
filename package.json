@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@pinata/sdk": "^1.1.25",
+=======
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@material-ui/styles": "^4.11.5",
+>>>>>>> jes-18-add-notifications-for-metamask
     "@usedapp/core": "^1.0.2",
     "axios": "^0.27.2",
     "form-data": "^4.0.0",
