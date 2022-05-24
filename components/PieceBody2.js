@@ -39,6 +39,9 @@ export default function Ntf({ contract, tokenId }) {
   let description = ipfsData?.description;
   let img_uri = ipfsData?.image;
   let attributes = ipfsData?.attributes;
+  //   const repeat = (arr, n) => [].concat(...Array(n).fill(arr));
+  //   attributes = repeat(attributes ?? [{ Mod: 11 }], 4);
+  let length = attributes?.length / 3;
 
   console.log(attributes);
 
@@ -57,7 +60,7 @@ export default function Ntf({ contract, tokenId }) {
 
         {/* NFT DATA */}
         <div className="space-y-4 lg:w-full lg:inline-block">
-          <div className="grid grid-flow-row grid-rows-3 grid-cols-3 gap-3">
+          <div className="grid grid-flow-row grid-rows-{length} grid-cols-3 gap-3">
             {attributes?.map((a) => (
               <Attribute
                 key={a.trait_type + a.value}
