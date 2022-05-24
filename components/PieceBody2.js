@@ -47,19 +47,19 @@ export default function Ntf({ contract, tokenId }) {
 
   return (
     <>
-      <div className="flex flex-col items-center mx-auto max-w-sm xl:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
+      <div className="flex flex-col items-center mx-auto max-w-sm xl:max-w-max lg:space-y-0 xl:grid xl:grid-cols-2 xl:gap-44 xl:items-end">
         {/* IMAGE AND TITLE */}
-        <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
-          <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
+        <div className="w-full flex-col mb-10 space-y-6 mt-14 mx-auto xl:max-w-min xl:mb-0 xl:inline-block">
+          <h1 className="text-5xl xl:text-6xl font-titles text-slate-100 mx-auto">
             {name}
           </h1>
-          <div className="mx-auto">
+          <div className="">
             <IPFSImage url={img_uri} />
           </div>
         </div>
 
         {/* NFT DATA */}
-        <div className="space-y-4 lg:w-full lg:inline-block">
+        <div className="space-y-4 w-full inline-block">
           <div className="grid grid-flow-row grid-rows-{length} grid-cols-3 gap-3">
             {attributes?.map((a) => (
               <Attribute
