@@ -1,17 +1,11 @@
-import {
-  useContractFunction,
-  useEthers,
-  useNotifications,
-} from "@usedapp/core";
+import { useContractFunction } from "@usedapp/core";
 import JesiArt from "@/contracts/JesiArt.json";
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import { JESI_ART_CONTRACT_ADDRESS } from "@/lib/utils";
-import { Snackbar, CircularProgress } from "@material-ui/core";
-import { useState, useEffect } from "react";
-import { Alert } from "@material-ui/lab";
+
 import SuccessAlert from "./SucessAlert";
-// import "tw-elements";
+import LoadingPing from "./LoadingPing";
 
 export default function MintButton({ nftUri: nftUri }) {
   const minting_tx_name = "Mint NFT";
@@ -41,20 +35,14 @@ export default function MintButton({ nftUri: nftUri }) {
         }}
       >
         {isMining ? (
-          <span className="">
-            Minting...{" "}
-            <div
-              className="spinner-grow inline-block w-4 h-4 bg-current rounded-full opacity-0"
-              role="status"
-            ></div>
-          </span>
+          <div className="inline-block mx-auto space-x-3">
+            <span>Minting...</span>
+            <LoadingPing />
+          </div>
         ) : (
           "Mint NFT"
         )}
       </button>
-      {/* <Snackbar open={mintState.status === "Success"} autoHideDuration={200}>
-        <Alert severity="success">Mint approved!</Alert>
-      </Snackbar> */}
 
       {mintState.status === "Success" ? (
         <SuccessAlert id="hideMe" />
