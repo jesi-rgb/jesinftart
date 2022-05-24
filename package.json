@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pinata/sdk": "^1.1.25",
     "@usedapp/core": "^1.0.2",
     "axios": "^0.27.2",
     "form-data": "^4.0.0",
@@ -19,6 +20,7 @@
     "react-blob": "^2.1.0",
     "react-dom": "18.1.0",
     "react-moralis": "^1.3.5",
+    "styled-components": "^5.3.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "web3": "^1.7.3"
   },

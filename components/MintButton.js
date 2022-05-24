@@ -22,6 +22,17 @@ export default function MintButton() {
     { transactionName: "Mint NFT" }
   );
 
+  useEffect(() => {
+    const getData = async () => {
+      const token_uri_response = await fetch(nftUri.slice(1, -1));
+
+      setIpfsData(await token_uri_response.json());
+    };
+    if (nftUri !== undefined) {
+      getData();
+    }
+  }, [nftUri]);
+
   const jsonURI =
     "https://ipfs.io/ipfs/Qmd9MCGtdVz2miNumBHDbvj8bigSgTwnr4SbyH6DNnpWdt?filename=0-PUG.json"; // TODO remove and upload own json
   const mint = () => {

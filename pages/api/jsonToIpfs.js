@@ -1,35 +1,42 @@
 /* eslint-disable import/no-anonymous-default-export */
 
 import axios from "axios";
-import FormData from "form-data";
-import { Blob } from "react-blob";
+import pinata from "@pinata/sdk";
 
 export default async (req, res) => {
-  const PINATA_PIN_FILE_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+  const PINATA_PIN_FILE_URL = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
-  const { contractAddress } = req.query;
-  // let web3 = new Web3(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`); //TODO
+  const { stringJson } = req.query;
 
-  var data = new FormData();
-  data.append("upfile", new Blob(["holaaaa"], { type: "text/plain" }));
+  let pinata_client = pinata(
+    process.env.PINATA_API_KEY,
+    process.env.PINATA_SECRET_API_KEY
+  );
 
-  axios
-    .post(PINATA_PIN_FILE_URL, data, {
-      headers: {
-        "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-        pinata_api_key: process.env.PINATA_API_KEY,
-        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
-      },
-    })
-    .then(function (response) {
-      res.setHeader("Content-Type", "application/json");
-      res.setHeader("Cache-Control", "max-age=180000");
-      res.end(JSON.stringify(response.data));
-    })
-    .catch(function (response) {
-      console.log(response);
-      res.setHeader("Content-Type", "application/json");
-      res.setHeader("Cache-Control", "max-age=180000");
-      res.end(JSON.stringify(response));
-    });
+  let json = JSON.parse(stringJson);
+
+  let response = await pinata_client.pinJSONToIPFS(json);
+  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Cache-Control", "max-age=180000");
+  res.end(JSON.stringify(response));
+
+  //   axios
+  //     .post(PINATA_PIN_FILE_URL, file, {
+  //       headers: {
+  //         pinata_api_key: process.env.PINATA_API_KEY,
+  //         pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
+  //       },
+  //       body: file,
+  //     })
+  //     .then(function (response) {
+  //       res.setHeader("Content-Type", "application/json");
+  //       res.setHeader("Cache-Control", "max-age=180000");
+  //       res.end(JSON.stringify(response.data));
+  //     })
+  //     .catch(function (response) {
+  //       console.log(response);
+  //       res.setHeader("Content-Type", "application/json");
+  //       res.setHeader("Cache-Control", "max-age=180000");
+  //       res.end(JSON.stringify(response));
+  //     });
 };
