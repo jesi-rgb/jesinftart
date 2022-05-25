@@ -16,7 +16,7 @@ export default function Ntf({ contract, tokenId }) {
       const token_uri_response = await fetch(
         `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
-
+      
       setNftUri((await token_uri_response.text()).slice(1, -1));
 
       const owner_of_response = await fetch(
