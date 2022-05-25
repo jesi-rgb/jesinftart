@@ -6,20 +6,6 @@ export default function Home() {
   const contract = "0xbbb8428f3e763af53Fa526a054d4F474cED74b78";
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenIdToImg, setTokenIdToImg] = useState({});
-  const [imgUrl, setImgUrl] = useState(undefined);
-
-  const isURL = (str) => {
-    var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // fragment locator
-    return pattern.test(str);
-  };
 
   // Get the token Ids
   useEffect(() => {
