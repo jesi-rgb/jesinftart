@@ -8,15 +8,21 @@ import Attribute from "./Attribute";
 export default function Ntf({ contract, tokenId }) {
   const [ipfsData, setIpfsData] = useState(undefined);
   const [nftUri, setNftUri] = useState(undefined);
+  const [owner, setOwner] = useState(undefined);
 
   // Get the token URI in JSON format
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(
+      const token_uri_response = await fetch(
         `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
+      setNftUri(await token_uri_response.text());
 
-      setNftUri((await response.text()).slice(1, -1));
+      const owner_of_response = await fetch(
+        `/api/callBlockchain?contractAddress=${contract}&method_name=ownerOf&args=[${tokenId}]`
+      );
+
+      setOwner((await owner_of_response.text()).slice(1, -1));
     };
     if (contract !== undefined && tokenId !== undefined) {
       getData();
@@ -95,7 +101,7 @@ export default function Ntf({ contract, tokenId }) {
             </div>
             <div>
               <div className="flex text-slate-400 lg:w-full truncate ...">
-                {shrinkHash("0000002304990291348102934801293481029348")}
+                {owner ? shrinkHash(owner) : "Retrieving owner..."}
               </div>
             </div>
           </div>
