@@ -6,20 +6,6 @@ export default function Home() {
   const contract = "0xbbb8428f3e763af53Fa526a054d4F474cED74b78";
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenIdToImg, setTokenIdToImg] = useState({});
-  const [imgUrl, setImgUrl] = useState(undefined);
-
-  const isURL = (str) => {
-    var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // fragment locator
-    return pattern.test(str);
-  };
 
   // Get the token Ids
   useEffect(() => {
@@ -53,7 +39,7 @@ export default function Home() {
 
         if (tokenURI === "") {
           console.error(
-            `The NFT ${tokenId} of the contract ${contract} has an empty URI`
+            `JesiArt: The NFT ${tokenId} of the contract ${contract} has an empty URI`
           );
           continue;
         }
@@ -62,7 +48,7 @@ export default function Home() {
         response = await fetch(tokenURI);
         if (!response.ok) {
           console.error(
-            `The NFT ${tokenId} of the contract ${contract} couldn't retrieve the JSON in URI. 
+            `JesiArt: The NFT ${tokenId} of the contract ${contract} couldn't retrieve the JSON in URI. 
             Received response: ${response.status}. URI: ${tokenURI}`
           );
           continue;
@@ -82,7 +68,7 @@ export default function Home() {
       <div className="text-slate-300 font-body">
         <div className="mt-12 mx-auto lg:max-w-min sm:max-w-max">
           <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-slate-100 mb-10">
-            WebAzOS
+            WebItOS
           </h1>
 
           <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">
