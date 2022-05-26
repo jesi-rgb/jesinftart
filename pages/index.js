@@ -6,7 +6,6 @@ export default function Home() {
   const contract = "0xbbb8428f3e763af53Fa526a054d4F474cED74b78";
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenIdToImg, setTokenIdToImg] = useState({});
-  const [imgUrl, setImgUrl] = useState(undefined);
 
   // Get the token Ids
   useEffect(() => {
@@ -38,8 +37,22 @@ export default function Home() {
         let tokenURI = await response.text();
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
 
+        if (tokenURI === "") {
+          console.error(
+            `JesiArt: The NFT ${tokenId} of the contract ${contract} has an empty URI`
+          );
+          continue;
+        }
+
         // Get NFT JSON
         response = await fetch(tokenURI);
+        if (!response.ok) {
+          console.error(
+            `JesiArt: The NFT ${tokenId} of the contract ${contract} couldn't retrieve the JSON in URI. 
+            Received response: ${response.status}. URI: ${tokenURI}`
+          );
+          continue;
+        }
         let json = await response.json();
         tmp_dict[tokenId] = json.image;
       }
@@ -55,7 +68,7 @@ export default function Home() {
       <div className="text-slate-300 font-body">
         <div className="mt-12 mx-auto lg:max-w-min sm:max-w-max">
           <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-slate-100 mb-10">
-            WebAzOS
+            WebItOS
           </h1>
 
           <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">

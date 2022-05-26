@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import Meta from "@/components/meta";
 import { Rinkeby, Kovan, DAppProvider } from "@usedapp/core";
-import { getDefaultProvider } from "ethers";
 import Header from "./Header";
 
 export const Layout = ({ children }) => {
@@ -11,8 +10,8 @@ export const Layout = ({ children }) => {
         config={{
           readOnlyChainId: [Kovan.chainId, Rinkeby.chainId],
           readOnlyUrls: {
-            [Kovan.chainId]: getDefaultProvider("kovan"),
-            [Rinkeby.chainId]: getDefaultProvider("rinkeby"),
+            // [Kovan.chainId]: getDefaultProvider("kovan"),
+            [Rinkeby.chainId]: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
           },
           notifications: {
             expirationPeriod: 1000,
