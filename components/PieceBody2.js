@@ -4,8 +4,10 @@ import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
 import Attribute from "./Attribute";
+import { useRouter } from "next/router";
 
 export default function Ntf({ contract, tokenId }) {
+  const router = useRouter();
   const [ipfsData, setIpfsData] = useState(undefined);
   const [nftUri, setNftUri] = useState(undefined);
   const [owner, setOwner] = useState(undefined);
@@ -16,6 +18,10 @@ export default function Ntf({ contract, tokenId }) {
       const token_uri_response = await fetch(
         `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
+
+      if (token_uri_response.status !== 200) {
+        router.replace("/404");
+      }
 
       setNftUri((await token_uri_response.text()).slice(1, -1));
 

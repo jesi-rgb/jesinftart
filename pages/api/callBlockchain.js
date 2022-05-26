@@ -10,9 +10,16 @@ export default async (req, res) => {
 
   const response = await contract.methods[method_name]
     .apply(this, JSON.parse(args))
-    .call();
-
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Cache-Control", "max-age=180000");
-  res.end(JSON.stringify(response));
+    .call()
+    .then((data) => {
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Cache-Control", "max-age=180000");
+      res.end(JSON.stringify(data));
+    })
+    .catch((error) => {
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Cache-Control", "max-age=180000");
+      res.status(204);
+      res.end(JSON.stringify(error.message));
+    });
 };
