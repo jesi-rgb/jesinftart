@@ -1,9 +1,7 @@
-import IPFSImage from "@/components/IPFSImage";
 import { shrinkHash } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
-import CanvasSketch from "./CanvasSketch";
 import CanvasScript from "./CanvasScript";
 
 export default function CanvasPieceScript({ contract, tokenId }) {

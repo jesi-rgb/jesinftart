@@ -1,5 +1,3 @@
-// Will only import `react-p5` on client-side
-
 export default function CanvasScript({ url }) {
   return (
     <iframe
