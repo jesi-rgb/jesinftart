@@ -48,10 +48,10 @@ export default function CanvasPieceScript({ contract, tokenId }) {
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
             {name}
           </h1>
-          <div className="transform scale-50">
+          <div className="relative">
             <CanvasScript
               url={
-                "https://gateway.pinata.cloud/ipfs/QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu/tiling.js"
+                "https://gateway.pinata.cloud/ipfs/QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu/index.html"
               }
             />
           </div>
