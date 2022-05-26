@@ -2,7 +2,7 @@ import { useContractFunction } from "@usedapp/core";
 import JesiArt from "@/contracts/JesiArt.json";
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
-import { JESI_ART_CONTRACT_ADDRESS } from "@/lib/utils";
+import { CONTRACT_ADDRESS } from "@/lib/utils";
 
 import SuccessAlert from "./SucessAlert";
 import LoadingPing from "./LoadingPing";
@@ -15,10 +15,7 @@ export default function MintButton({}) {
   // Get contract
   const jesiArtAbi = JesiArt.abi;
   const jesiArtInterface = new utils.Interface(jesiArtAbi);
-  const jesiArtContract = new Contract(
-    JESI_ART_CONTRACT_ADDRESS,
-    jesiArtInterface
-  );
+  const jesiArtContract = new Contract(CONTRACT_ADDRESS, jesiArtInterface);
 
   // Minting function
   const { send: mintSend, state: mintState } = useContractFunction(
