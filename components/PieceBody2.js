@@ -16,7 +16,8 @@ export default function Ntf({ contract, tokenId }) {
       const token_uri_response = await fetch(
         `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
-      setNftUri(await token_uri_response.text());
+
+      setNftUri((await token_uri_response.text()).slice(1, -1));
 
       const owner_of_response = await fetch(
         `/api/callBlockchain?contractAddress=${contract}&method_name=ownerOf&args=[${tokenId}]`
@@ -48,8 +49,6 @@ export default function Ntf({ contract, tokenId }) {
   //   const repeat = (arr, n) => [].concat(...Array(n).fill(arr));
   //   attributes = repeat(attributes ?? [{ Mod: 11 }], 4);
   let length = attributes?.length / 3;
-
-  console.log(attributes);
 
   return (
     <>
@@ -117,9 +116,7 @@ export default function Ntf({ contract, tokenId }) {
               {shrinkHash("TODOadsfsdfdsfsdfsdfsdfds")}
             </div>
           </div>
-          <div className="w-full">
-            {nftUri ? <MintButton nftUri={nftUri} /> : <></>}
-          </div>
+          <div className="w-full">{nftUri ? <MintButton /> : <></>}</div>
         </div>
       </div>
     </>
