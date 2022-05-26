@@ -1,9 +1,9 @@
 import CarouselImage2 from "@/components/CarouselImage2";
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
+import { CONTRACT_ADDRESS } from "@/lib/utils.js";
 
 export default function Home() {
-  const contract = "0xbbb8428f3e763af53Fa526a054d4F474cED74b78";
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenIdToImg, setTokenIdToImg] = useState({});
 
@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
-        `/api/getTokenIds?contractAddress=${contract}`
+        `/api/getTokenIds?contractAddress=${CONTRACT_ADDRESS}`
       );
       const events = await response.json();
       let tmp_array = [];
@@ -20,10 +20,10 @@ export default function Home() {
       }
       setTokenIds(tmp_array);
     };
-    if (contract !== undefined) {
+    if (CONTRACT_ADDRESS !== undefined) {
       getData();
     }
-  }, [contract]);
+  }, [CONTRACT_ADDRESS]);
 
   // Get the token URIs
   useEffect(() => {
@@ -32,14 +32,14 @@ export default function Home() {
       for (let tokenId in tokenIds) {
         // Get tokenURI
         let response = await fetch(
-          `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
+          `/api/callBlockchain?contractAddress=${CONTRACT_ADDRESS}&method_name=tokenURI&args=[${tokenId}]`
         );
         let tokenURI = await response.text();
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
 
         if (tokenURI === "") {
           console.error(
-            `JesiArt: The NFT ${tokenId} of the contract ${contract} has an empty URI`
+            `JesiArt: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} has an empty URI`
           );
           continue;
         }
@@ -48,7 +48,7 @@ export default function Home() {
         response = await fetch(tokenURI);
         if (!response.ok) {
           console.error(
-            `JesiArt: The NFT ${tokenId} of the contract ${contract} couldn't retrieve the JSON in URI. 
+            `JesiArt: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} couldn't retrieve the JSON in URI. 
             Received response: ${response.status}. URI: ${tokenURI}`
           );
           continue;
@@ -76,7 +76,7 @@ export default function Home() {
               return (
                 <CarouselImage2
                   key={tokenId}
-                  contractAddress={contract}
+                  contractAddress={CONTRACT_ADDRESS}
                   tokenId={tokenId}
                   img={tokenIdToImg[tokenId]}
                 />
