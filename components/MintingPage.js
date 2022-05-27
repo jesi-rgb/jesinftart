@@ -45,29 +45,29 @@ export default function MintingPage({ contract, tokenId }) {
 
   return (
     <>
-      <div className="flex flex-col items-center mx-auto max-w-xs xl:max-w-max xl:space-y-0 xl:grid md:grid-cols-2 xl:gap-44 xl:items-end">
+      <div className="flex flex-col items-center mx-auto max-w-xs lg:max-w-xl xl:max-w-max xl:space-y-0 xl:grid xl:grid-cols-2 xl:gap-22 xl:items-end">
         {/* IMAGE TITLE and BUTTONS */}
-        <div className="w-full flex-col mb-10 space-y-2 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
-          <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
+        <div className="w-full flex-col mb-10 space-y-4 mt-14 mx-auto xl:mb-0 lg:inline-block">
+          <h1 className="text-5xl xl:text-6xl font-titles text-slate-100 mx-auto">
             Title
           </h1>
           {/* CONTROL BUTTONS */}
-          <div className="flex flex-row space-x-5">
+          <div className="flex flex-row w-full place-content-evenly xl:place-content-start xl:space-x-4 py-5 xl:py-0">
             <button
               onClick={reloadIframe}
               className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+              <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                 Reload
               </div>
-              <ReloadIcon className="mt-0.5 group-hover:rotate-180 transition-transform" />
+              <ReloadIcon className="mt-0.5 xl:w-auto group-hover:rotate-180 transition-transform" />
             </button>
 
             <button
               onClick={newSeedIframe}
               className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+              <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                 New seed
               </div>
               <MagicWandIcon className="mt-0.5 group-hover:rotate-12 transition-transform" />
@@ -75,14 +75,14 @@ export default function MintingPage({ contract, tokenId }) {
 
             <a href={img_uri ?? "#"}>
               <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
-                <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+                <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                   View on IPFS
                 </div>
-                <ArrowTopRightIcon className="transform scale-125 mt-0.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ArrowTopRightIcon className="mt-0.5 transform scale-125 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </div>
             </a>
           </div>
-          <div className="relative">
+          <div className="">
             <CanvasScript url={"http://127.0.0.1:5500?seed=1"} />
           </div>
         </div>

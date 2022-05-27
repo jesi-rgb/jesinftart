@@ -2,6 +2,7 @@ import Link from "next/link";
 import ConnectButton from "./ConnectButton";
 
 export default function Header() {
+  //   mx-auto max-w-xs lg:max-w-lg xl:max-w-full
   return (
     <>
       <header className="mx-auto max-w-xs lg:max-w-lg xl:max-w-full">
