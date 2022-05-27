@@ -59,8 +59,6 @@ export default function MintButton({}) {
 
   const isMining = mintState.status === "Mining";
 
-  console.log(chainId);
-
   return (
     <>
       {chainId === 4 ? (
