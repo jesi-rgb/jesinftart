@@ -3,6 +3,11 @@ import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
 import CanvasScript from "./CanvasScript";
+import {
+  ReloadIcon,
+  ArrowTopRightIcon,
+  MagicWandIcon,
+} from "@radix-ui/react-icons";
 
 export default function MintingPage({ contract, tokenId }) {
   const [ipfsData, setIpfsData] = useState(undefined);
@@ -46,17 +51,33 @@ export default function MintingPage({ contract, tokenId }) {
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
             Title
           </h1>
-          <div className="relative">
-            <CanvasScript
-              url={
-                "https://gateway.pinata.cloud/ipfs/QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu/index.html"
-              }
-            />
-          </div>
+          {/* CONTROL BUTTONS */}
           <div className="flex flex-row space-x-5">
-            <div className="text-slate-200 font-body">Reload</div>
-            <div className="text-slate-200 font-body">New seed</div>
-            <div className="text-slate-200 font-body">View on IPFS</div>
+            <button
+              onClick={reloadIframe}
+              className="flex flex-row items-center space-x-1"
+            >
+              <div className="text-slate-200 font-body">Reload</div>
+              <ReloadIcon className="text-slate-200 mt-0.5" />
+            </button>
+
+            <button
+              onClick={newSeedIframe}
+              className="flex flex-row items-center space-x-1"
+            >
+              <div className="text-slate-200 font-body">New seed</div>
+              <MagicWandIcon className="text-slate-200 mt-0.5" />
+            </button>
+
+            <a href={img_uri ?? "#"}>
+              <div className="flex flex-row items-center space-x-1">
+                <div className="text-slate-200 font-body">View on IPFS</div>
+                <ArrowTopRightIcon className="text-slate-200 transform scale-125 mt-0.5" />
+              </div>
+            </a>
+          </div>
+          <div className="relative">
+            <CanvasScript url={"http://127.0.0.1:5500?seed=1"} />
           </div>
         </div>
 
@@ -117,4 +138,25 @@ export default function MintingPage({ contract, tokenId }) {
       </div>
     </>
   );
+}
+
+function newSeedIframe() {
+  let newSeed = getRandomInt(99999).toString();
+
+  var ifr = document.getElementById("iframe");
+  let url = new URL(ifr.src);
+
+  url.searchParams.set("seed", newSeed);
+
+  ifr.src = url.href;
+}
+
+function reloadIframe() {
+  var ifr = document.getElementById("iframe");
+
+  ifr.src = ifr.src;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
