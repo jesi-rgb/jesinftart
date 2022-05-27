@@ -3,8 +3,7 @@ export default function CanvasScript({ url }) {
     <iframe
       loading="lazy"
       id="iframe"
-      width={500}
-      height={500}
+      className="relative w-54 lg:w-96 lg:h-96"
       sandbox="allow-scripts allow-same-origin"
       src={url}
     />

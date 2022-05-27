@@ -45,7 +45,7 @@ export default function MintingPage({ contract, tokenId }) {
 
   return (
     <>
-      <div className="flex flex-col items-center mx-auto max-w-sm xl:max-w-max lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-44 lg:items-end">
+      <div className="flex flex-col items-center mx-auto max-w-xs xl:max-w-max xl:space-y-0 xl:grid md:grid-cols-2 xl:gap-44 xl:items-end">
         {/* IMAGE TITLE and BUTTONS */}
         <div className="w-full flex-col mb-10 space-y-2 mt-14 mx-auto lg:max-w-min lg:mb-0 lg:inline-block">
           <h1 className="text-5xl lg:text-6xl font-titles text-slate-100 mx-auto">
@@ -57,7 +57,9 @@ export default function MintingPage({ contract, tokenId }) {
               onClick={reloadIframe}
               className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="font-body">Reload</div>
+              <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+                Reload
+              </div>
               <ReloadIcon className="mt-0.5 group-hover:rotate-180 transition-transform" />
             </button>
 
@@ -65,13 +67,17 @@ export default function MintingPage({ contract, tokenId }) {
               onClick={newSeedIframe}
               className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="font-body">New seed</div>
+              <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+                New seed
+              </div>
               <MagicWandIcon className="mt-0.5 group-hover:rotate-12 transition-transform" />
             </button>
 
             <a href={img_uri ?? "#"}>
               <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
-                <div className="font-body">View on IPFS</div>
+                <div className="font-body opacity-0 absolute right-0 top-0 lg:opacity-100 lg:relative">
+                  View on IPFS
+                </div>
                 <ArrowTopRightIcon className="transform scale-125 mt-0.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </div>
             </a>
@@ -82,10 +88,10 @@ export default function MintingPage({ contract, tokenId }) {
         </div>
 
         {/* NFT DATA */}
-        <div className="space-y-4 lg:w-full lg:inline-block">
+        <div className="space-y-4 lg:w-full xl:inline-block">
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
-            <div className="text-slate-400 font-body text-sm text-justify">
+            <div className="text-slate-400 font-body text-sm text-justify selection:bg-slate-800 selection:text-slate-100">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
