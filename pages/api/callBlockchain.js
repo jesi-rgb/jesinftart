@@ -4,7 +4,9 @@ import Web3 from "web3";
 
 export default async (req, res) => {
   const { contractAddress, method_name, args } = req.query;
-  let web3 = new Web3(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`); //TODO
+  let web3 = new Web3(
+    `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
+  ); //TODO
 
   const contract = new web3.eth.Contract(JesiArt.abi, contractAddress);
 
