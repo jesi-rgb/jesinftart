@@ -55,24 +55,24 @@ export default function MintingPage({ contract, tokenId }) {
           <div className="flex flex-row space-x-5">
             <button
               onClick={reloadIframe}
-              className="flex flex-row items-center space-x-1"
+              className="flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="text-slate-200 font-body">Reload</div>
-              <ReloadIcon className="text-slate-200 mt-0.5" />
+              <div className="font-body">Reload</div>
+              <ReloadIcon className="mt-0.5" />
             </button>
 
             <button
               onClick={newSeedIframe}
-              className="flex flex-row items-center space-x-1"
+              className="flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
-              <div className="text-slate-200 font-body">New seed</div>
-              <MagicWandIcon className="text-slate-200 mt-0.5" />
+              <div className="font-body">New seed</div>
+              <MagicWandIcon className=" mt-0.5" />
             </button>
 
             <a href={img_uri ?? "#"}>
-              <div className="flex flex-row items-center space-x-1">
-                <div className="text-slate-200 font-body">View on IPFS</div>
-                <ArrowTopRightIcon className="text-slate-200 transform scale-125 mt-0.5" />
+              <div className="flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
+                <div className="font-body">View on IPFS</div>
+                <ArrowTopRightIcon className="transform scale-125 mt-0.5" />
               </div>
             </a>
           </div>
