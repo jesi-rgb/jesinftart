@@ -1,4 +1,4 @@
-import { useContractFunction } from "@usedapp/core";
+import { useContractFunction, useEthers } from "@usedapp/core";
 import JesiArt from "@/contracts/JesiArt.json";
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
@@ -9,6 +9,9 @@ import LoadingPing from "./LoadingPing";
 import { useState, useEffect } from "react";
 
 export default function MintButton({}) {
+  const { account, chainId } = useEthers();
+  // const rightNetwork =
+
   const minting_tx_name = "Mint NFT";
   const [pushJsonToIpfs, setPushJsonToIpfs] = useState(false);
 
@@ -20,7 +23,7 @@ export default function MintButton({}) {
   // Minting function
   const { send: mintSend, state: mintState } = useContractFunction(
     jesiArtContract,
-    "create_ntf",
+    "create_ntf", // TODO change for mint() when changing contract
     { transactionName: minting_tx_name }
   );
 
@@ -56,23 +59,36 @@ export default function MintButton({}) {
 
   const isMining = mintState.status === "Mining";
 
+  console.log(chainId);
+
   return (
     <>
-      <button
-        className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600 w-full"
-        onClick={() => {
-          setPushJsonToIpfs(true);
-        }}
-      >
-        {isMining ? (
-          <div className="inline-block mx-auto space-x-3">
-            <span>Minting...</span>
-            <LoadingPing />
-          </div>
-        ) : (
-          "Mint NFT"
-        )}
-      </button>
+      {chainId === 4 ? (
+        <button
+          className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600 w-full"
+          onClick={() => {
+            setPushJsonToIpfs(true);
+          }}
+        >
+          {isMining ? (
+            <div className="inline-block mx-auto space-x-3">
+              <span>Minting...</span>
+              <LoadingPing />
+            </div>
+          ) : (
+            "Mint NFT"
+          )}
+        </button>
+      ) : (
+        <button
+          disabled
+          className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600 w-full"
+        >
+          {account
+            ? "Connect to Rinkeby network to mint" //TODO change rinkeby
+            : "Connect account to mint"}
+        </button>
+      )}
 
       {mintState.status === "Success" ? (
         <SuccessAlert id="hideMe" />
@@ -81,4 +97,4 @@ export default function MintButton({}) {
       )}
     </>
   );
-} // TODO change snackbar and alert because it throws an exception and you can make it more beautiful, Jesi
+}
