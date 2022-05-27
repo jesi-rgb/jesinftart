@@ -6,7 +6,6 @@ export default function CanvasScript({ url }) {
       height={500}
       sandbox="allow-scripts allow-same-origin"
       src={url}
-      seamless
     />
   );
 }

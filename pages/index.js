@@ -35,6 +35,7 @@ export default function Home() {
           `/api/callBlockchain?contractAddress=${CONTRACT_ADDRESS}&method_name=tokenURI&args=[${tokenId}]`
         );
         let tokenURI = await response.text();
+        console.log(response);
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
 
         if (tokenURI === "") {

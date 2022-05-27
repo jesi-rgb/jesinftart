@@ -21,7 +21,7 @@ export default async (req, res) => {
     .catch((error) => {
       res.setHeader("Content-Type", "application/json");
       res.setHeader("Cache-Control", "max-age=180000");
-      res.status(204);
+      res.status(530);
       res.end(JSON.stringify(error.message));
     });
 };
