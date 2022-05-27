@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="text-sm">
             <a
               href="https://twitter.com/jesi_rgb"
-              className="text-gray-500 ml-1 hover:text-gray-300 transition-colors"
+              className="text-gray-500 hover:text-gray-300 transition-colors"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="text-sm">
             <a
               href="https://github.com/jesi-rgb"
-              className="text-gray-500 ml-1 hover:text-gray-300 transition-colors"
+              className="text-gray-500 hover:text-gray-300 transition-colors"
               rel="noopener noreferrer"
               target="_blank"
             >
