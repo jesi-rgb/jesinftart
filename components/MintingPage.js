@@ -12,6 +12,7 @@ import {
 export default function MintingPage({ contract, tokenId }) {
   const [ipfsData, setIpfsData] = useState(undefined);
   const [nftUri, setNftUri] = useState(undefined);
+  let [seed, setSeed] = useState(getRandomInt(99999));
 
   // Get the token URI in JSON format
   useEffect(() => {
@@ -64,7 +65,11 @@ export default function MintingPage({ contract, tokenId }) {
             </button>
 
             <button
-              onClick={newSeedIframe}
+              onClick={() => {
+                let newSeed = getRandomInt(99999);
+                setSeed(() => newSeed);
+                document.getElementById("inputValue").value = newSeed;
+              }}
               className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150"
             >
               <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
@@ -83,7 +88,7 @@ export default function MintingPage({ contract, tokenId }) {
             </a>
           </div>
           <div className="">
-            <CanvasScript url={"http://127.0.0.1:5500?seed=1"} />
+            <CanvasScript url={"http://127.0.0.1:5500?seed=" + seed} />
           </div>
         </div>
 
@@ -91,7 +96,7 @@ export default function MintingPage({ contract, tokenId }) {
         <div className="space-y-4 lg:w-full xl:inline-block">
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
-            <div className="text-slate-400 font-body text-sm text-justify selection:bg-slate-800 selection:text-slate-100">
+            <div className="text-slate-400 font-body text-sm text-justify selection:bg-slate-200 selection:text-slate-800">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -130,12 +135,24 @@ export default function MintingPage({ contract, tokenId }) {
           <div className="flex flex-row">
             <div className="text-slate-200 font-titles w-full lg:w-screen">
               {" "}
-              Hash
+              Seed
             </div>
-            <div className="text-slate-400 font-body">
-              {" "}
-              {shrinkHash("TODOadsfsdfdsfsdfsdfsdfds")}
-            </div>
+            <form
+              onKeyDown={(key) => {
+                if (key.key == "Enter") {
+                  setSeed(document.getElementById("inputValue").value);
+                  console.log("mierda", seed);
+                }
+              }}
+              //   onChange={(e) => (seed = e.target.value)}
+            >
+              <input
+                className="text-slate-400 placeholder:text-slate-400 font-body bg-slate-800 table-cell text-right"
+                type="text"
+                id="inputValue"
+                defaultValue={seed}
+              />
+            </form>
           </div>
           <div className="w-full">
             <MintButton />
@@ -147,12 +164,10 @@ export default function MintingPage({ contract, tokenId }) {
 }
 
 function newSeedIframe() {
-  let newSeed = getRandomInt(99999).toString();
-
   var ifr = document.getElementById("iframe");
   let url = new URL(ifr.src);
 
-  url.searchParams.set("seed", newSeed);
+  url.searchParams.set("seed", seed);
 
   ifr.src = url.href;
 }
