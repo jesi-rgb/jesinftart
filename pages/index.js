@@ -35,12 +35,11 @@ export default function Home() {
           `/api/callBlockchain?contractAddress=${CONTRACT_ADDRESS}&method_name=tokenURI&args=[${tokenId}]`
         );
         let tokenURI = await response.text();
-        console.log(response);
         tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
 
         if (tokenURI === "") {
           console.error(
-            `JesiArt: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} has an empty URI`
+            `Collection: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} has an empty URI`
           );
           continue;
         }
@@ -49,7 +48,7 @@ export default function Home() {
         response = await fetch(tokenURI);
         if (!response.ok) {
           console.error(
-            `JesiArt: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} couldn't retrieve the JSON in URI. 
+            `Collection: The NFT ${tokenId} of the contract ${CONTRACT_ADDRESS} couldn't retrieve the JSON in URI. 
             Received response: ${response.status}. URI: ${tokenURI}`
           );
           continue;
