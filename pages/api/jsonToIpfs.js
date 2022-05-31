@@ -4,7 +4,7 @@ import axios from "axios";
 import pinata from "@pinata/sdk";
 
 export default async (req, res) => {
-  const PINATA_PIN_FILE_URL = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
+  const PINATA_PIN_FILE_URL = "https://api.pinata.cloud/pinning/pinJSONToIPFS"; // TODO
 
   const { stringJson } = req.query;
 
@@ -20,6 +20,7 @@ export default async (req, res) => {
   res.setHeader("Cache-Control", "max-age=180000");
   res.end(JSON.stringify(response));
 
+  // TODO
   //   axios
   //     .post(PINATA_PIN_FILE_URL, file, {
   //       headers: {
