@@ -44,6 +44,13 @@ export default function Home() {
           continue;
         }
 
+        if (
+          tokenURI ===
+          "Returned error: execution reverted: ERC721URIStorage: URI query for nonexistent token"
+        ) {
+          continue;
+        }
+
         // Get NFT JSON
         response = await fetch(tokenURI);
         if (!response.ok) {
