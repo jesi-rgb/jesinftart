@@ -23,7 +23,7 @@ export default function Home() {
     if (CONTRACT_ADDRESS !== undefined) {
       getData();
     }
-  }, [CONTRACT_ADDRESS]);
+  }, []);
 
   // Get the token URIs
   useEffect(() => {

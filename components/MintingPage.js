@@ -119,18 +119,6 @@ export default function MintingPage({ contract, tokenId }) {
             </div>
           </div>
 
-          {/* OWNER */}
-          <div className="flex flex-row font-body">
-            <div className="flex text-slate-200 font-titles w-full lg:w-screen">
-              Owner
-            </div>
-            <div>
-              <div className="flex text-slate-400 lg:w-full truncate ...">
-                {shrinkHash("0000002304990291348102934801293481029348")}
-              </div>
-            </div>
-          </div>
-
           {/* HASH */}
           <div className="flex flex-row">
             <div className="text-slate-200 font-titles w-full lg:w-screen">
