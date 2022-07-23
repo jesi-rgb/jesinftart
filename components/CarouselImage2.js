@@ -5,16 +5,14 @@ export default function CarouselImage2({ contractAddress, tokenId, img, big }) {
   console.log(big);
   return (
     <>
-      <div
-        className={
-          "text-gray-600 hover:text-gray-300 transition-colors" + big
-            ? "col-span-2 row-span-2"
-            : ""
-        }
-      >
-        <div className="flex-col">
+      <div className="text-gray-600 hover:text-gray-300 transition-colors mx-auto">
+        <div className={"flex-col "}>
           <a href={`/collections/${contractAddress}/${tokenId}`}>
-            <img src={img} alt="" width={200} height={200} />
+            <img
+              src={img}
+              alt=""
+              className="w-[180px] h-[180px] md:w-[230px] md:h-[230px] xl:w-[180px] xl:h-[180px]"
+            />
           </a>
           <div className="font-body truncate ...">{shrinkHash("hash")}</div>
         </div>
