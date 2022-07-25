@@ -3,21 +3,18 @@ import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useContractFunction, useEthers } from "@usedapp/core";
-import MintButton from "@/components/MintButton";
-
+import CollectionManager from "@/contracts/CollectionManager.json";
+import { useState, useEffect } from "react";
 import {
   COLLECTION_MANAGER_ADDRESS,
   APPROVED_ADDRESSES_FOR_UPLOADING,
+  CollectionManagerContract,
 } from "@/lib/utils";
 
 export default function UploadCollection({ slug }) {
-  //   const router = useRouter();
-  //   const { contract, tokenId } = router.query;
-
   const { account, chainId, activateBrowserWallet, deactivate, error } =
     useEthers();
   const isConnected = account !== undefined;
-  console.log(account, chainId, activateBrowserWallet, deactivate, error);
 
   const {
     register,
@@ -26,9 +23,26 @@ export default function UploadCollection({ slug }) {
     formState: { errors },
   } = useForm();
 
+  // Creation function
+  const tx_name = "Create Collection";
+  const { send: creationSend, state: creationState } = useContractFunction(
+    CollectionManagerContract,
+    "create_ntf", // TODO change for mint() when changing contract
+    { transactionName: tx_name }
+  );
+
   const onSubmit = (data) => {
-    console.log("hello", data);
+    creationSend(
+      data.Name,
+      data.Symbol,
+      data.Description,
+      data.IpfsHash,
+      data.MaxSupply,
+      data.MintFee
+    );
   };
+
+  const isMining = mintState.status === "Mining";
 
   return (
     <>
@@ -67,12 +81,24 @@ export default function UploadCollection({ slug }) {
             <input type="number" {...register("MintFee", { required: true })} />
             {errors.MintFee?.type === "required" && "Field required"}
           </label>
-          <label>
-            <input type="submit" />
-          </label>
+          {isMining ? (
+            <div className="inline-block mx-auto space-x-3">
+              <span>Minting...</span>
+              <LoadingPing />
+            </div>
+          ) : (
+            <label>
+              <input type="submit" />
+            </label>
+          )}
         </form>
       ) : (
         <div> NOT AUTHORISED</div>
+      )}
+      {creationState.status === "Success" ? (
+        <SuccessAlert id="hideMe" />
+      ) : (
+        <div></div>
       )}
     </>
   );

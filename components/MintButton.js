@@ -1,5 +1,5 @@
 import { useContractFunction, useEthers } from "@usedapp/core";
-import JesiArt from "@/contracts/JesiArt.json";
+import Collection from "@/contracts/Collection.json";
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import { CONTRACT_ADDRESS } from "@/lib/utils";
@@ -16,7 +16,7 @@ export default function MintButton({}) {
   const [pushJsonToIpfs, setPushJsonToIpfs] = useState(false);
 
   // Get contract
-  const jesiArtAbi = JesiArt.abi;
+  const jesiArtAbi = Collection.abi;
   const jesiArtInterface = new utils.Interface(jesiArtAbi);
   const jesiArtContract = new Contract(CONTRACT_ADDRESS, jesiArtInterface);
 
