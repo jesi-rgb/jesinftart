@@ -1,0 +1,3 @@
+[submodule "Jesi-Nft-Contracts"]
+	path = Jesi-Nft-Contracts
+	url = https://github.com/acrulopez/Jesi-Nft-Contracts.git
