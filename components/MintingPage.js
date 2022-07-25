@@ -46,11 +46,11 @@ export default function MintingPage({ contract, tokenId }) {
 
   useEffect(() => {
     reloadIframe();
-  }, []);
+  }, [seed]);
 
   useEffect(() => {
     window.addEventListener("resize", () => reloadIframe());
-  }, []);
+  }, [seed]);
 
   return (
     <>
@@ -96,7 +96,12 @@ export default function MintingPage({ contract, tokenId }) {
             </a>
           </div>
           <div onResize={reloadIframe}>
-            <CanvasScript url={"http://127.0.0.1:5500?seed=" + seed} />
+            <CanvasScript
+              url={
+                "https://cloudflare-ipfs.com/ipfs/QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu?seed=" +
+                seed
+              }
+            />
           </div>
         </div>
 

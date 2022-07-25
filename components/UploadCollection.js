@@ -5,10 +5,16 @@ import { useForm } from "react-hook-form";
 import { useContractFunction, useEthers } from "@usedapp/core";
 import CollectionManager from "@/contracts/CollectionManager.json";
 import { useState, useEffect } from "react";
+import { utils } from "ethers";
+import { Contract } from "@ethersproject/contracts";
+import LoadingPing from "./LoadingPing";
+
 import {
   COLLECTION_MANAGER_ADDRESS,
   APPROVED_ADDRESSES_FOR_UPLOADING,
-  CollectionManagerContract,
+  // CollectionManagerContract,
+  webURI,
+  ipfs_prefix,
 } from "@/lib/utils";
 
 export default function UploadCollection({ slug }) {
@@ -23,26 +29,74 @@ export default function UploadCollection({ slug }) {
     formState: { errors },
   } = useForm();
 
+  const CollectionManagerAbi = CollectionManager.abi;
+  const CollectionManagerInterface = new utils.Interface(CollectionManagerAbi);
+  const CollectionManagerContract = new Contract(
+    COLLECTION_MANAGER_ADDRESS,
+    CollectionManagerInterface
+  );
+
   // Creation function
   const tx_name = "Create Collection";
   const { send: creationSend, state: creationState } = useContractFunction(
     CollectionManagerContract,
-    "create_ntf", // TODO change for mint() when changing contract
+    "createCollection",
     { transactionName: tx_name }
   );
 
-  const onSubmit = (data) => {
-    creationSend(
-      data.Name,
-      data.Symbol,
-      data.Description,
-      data.IpfsHash,
-      data.MaxSupply,
-      data.MintFee
-    );
+  const [pushJsonToIpfs, setPushJsonToIpfs] = useState(false);
+  const [data, setData] = useState(false);
+  useEffect(() => {
+    const uploadToIpfs = async () => {
+      let json = {
+        name: data.Name,
+        description: data.Description,
+        external_link: webURI,
+        p5: ipfs_prefix + data.IpfsHash,
+        image: ipfs_prefix + data.IpfsHash + "/thumbnail.png",
+        seller_fee_basis_points: 100,
+        fee_recipient: COLLECTION_MANAGER_ADDRESS,
+      };
+
+      const ipfs_response = await fetch(
+        `/api/jsonToIpfs?stringJson=${JSON.stringify(json)}`
+      );
+
+      let collectionUriHash = (await ipfs_response.json())["IpfsHash"];
+
+      console.log(
+        data.Name,
+        data.Symbol,
+        data.Description,
+        data.IpfsHash,
+        ipfs_prefix + collectionUriHash,
+        data.MaxSupply,
+        data.MintFee
+      );
+
+      creationSend(
+        data.Name,
+        data.Symbol,
+        data.Description,
+        data.IpfsHash,
+        ipfs_prefix + collectionUriHash,
+        data.MaxSupply,
+        data.MintFee
+      );
+
+      setPushJsonToIpfs(false);
+    };
+    if (pushJsonToIpfs) {
+      uploadToIpfs();
+    }
+  }, [pushJsonToIpfs]);
+
+  const onSubmit = (formData) => {
+    setData(formData);
+    setPushJsonToIpfs(true);
   };
 
-  const isMining = mintState.status === "Mining";
+  const isMining = creationState.status === "Mining";
 
   return (
     <>
@@ -83,7 +137,7 @@ export default function UploadCollection({ slug }) {
           </label>
           {isMining ? (
             <div className="inline-block mx-auto space-x-3">
-              <span>Minting...</span>
+              <span>Creating...</span>
               <LoadingPing />
             </div>
           ) : (
