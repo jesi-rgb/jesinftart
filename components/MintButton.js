@@ -31,7 +31,7 @@ export default function MintButton({}) {
     name: "PUGGY",
     description: "An amazinger Z adorable PUG pup!",
     image:
-      "https://ipfs.io/ipfs/QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8?filename=pug.png",
+      "https://ipfs.io/ipfs/QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8?filename=pug.png", //TODO
     attributes: [
       {
         trait_type: "cuteness",

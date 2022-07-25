@@ -1,8 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import JesiArt from "@/contracts/JesiArt.json";
 import Web3 from "web3";
-import { constants } from "ethers";
 
+/**
+ * Calls the blockchain to return the ids of the tokens owned by a specific account
+ */
 export default async (req, res) => {
   const { contractAddress, account } = req.query;
   let web3 = new Web3(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`); //TODO
