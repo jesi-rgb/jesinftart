@@ -44,9 +44,17 @@ export default function MintingPage({ contract, tokenId }) {
   let img_uri = ipfsData?.image;
   let attributes = ipfsData?.attributes;
 
+  useEffect(() => {
+    reloadIframe();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => reloadIframe());
+  }, []);
+
   return (
     <>
-      <div className="flex flex-col items-center mx-auto max-w-xs lg:max-w-xl xl:max-w-max xl:space-y-0 xl:grid xl:grid-cols-2 xl:gap-22 xl:items-end">
+      <div className="flex flex-col items-center mx-auto max-w-xs lg:max-w-xl xl:max-w-full xl:space-y-0 xl:grid xl:grid-cols-2 xl:gap-40 xl:items-end">
         {/* IMAGE TITLE and BUTTONS */}
         <div className="w-full flex-col mb-10 space-y-4 mt-14 mx-auto xl:mb-0 lg:inline-block">
           <h1 className="text-5xl xl:text-6xl font-titles text-slate-100 mx-auto">
@@ -87,7 +95,7 @@ export default function MintingPage({ contract, tokenId }) {
               </div>
             </a>
           </div>
-          <div className="">
+          <div onResize={reloadIframe}>
             <CanvasScript url={"http://127.0.0.1:5500?seed=" + seed} />
           </div>
         </div>
@@ -135,7 +143,7 @@ export default function MintingPage({ contract, tokenId }) {
               //   onChange={(e) => (seed = e.target.value)}
             >
               <input
-                className="text-slate-400 placeholder:text-slate-400 font-body bg-slate-800 table-cell text-right"
+                className="text-slate-400 font-body bg-slate-800 table-cell text-right"
                 type="text"
                 id="inputValue"
                 defaultValue={seed}
@@ -161,6 +169,7 @@ function newSeedIframe() {
 }
 
 function reloadIframe() {
+  console.log("reloading iframe");
   var ifr = document.getElementById("iframe");
 
   ifr.src = ifr.src;

@@ -2,6 +2,7 @@ import CarouselImage2 from "@/components/CarouselImage2";
 import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
 import { CONTRACT_ADDRESS } from "@/lib/utils.js";
+import GalleryGrid from "@/components/GalleryGrid";
 
 export default function Home() {
   const [tokenIds, setTokenIds] = useState([]);
@@ -73,12 +74,12 @@ export default function Home() {
   return (
     <Layout>
       <div className="text-slate-300 font-body">
-        <div className="mt-12 mx-auto lg:max-w-min sm:max-w-max">
+        <div className="mt-12 mx-auto">
           <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-slate-100 mb-10">
             WebItOS
           </h1>
 
-          <div className="flex flex-col space-y-16 rounded-md drop-shadow-2xl w-full lg:flex-row lg:overflow-x-scroll lg:scrollbar-hide lg:space-y-0 lg:space-x-10">
+          <div className="flex flex-wrap gap-5 md:gap-9 xl:gap-14">
             {Object.keys(tokenIdToImg).map((tokenId) => {
               return (
                 <CarouselImage2
@@ -86,6 +87,7 @@ export default function Home() {
                   contractAddress={CONTRACT_ADDRESS}
                   tokenId={tokenId}
                   img={tokenIdToImg[tokenId]}
+                  big={Math.random() < 0.1 ? true : false}
                 />
               );
             })}
