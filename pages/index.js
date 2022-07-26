@@ -1,13 +1,13 @@
 import CarouselImage2 from "@/components/CarouselImage2";
 import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
-import { CONTRACT_ADDRESS } from "@/lib/utils.js";
-import GalleryGrid from "@/components/GalleryGrid";
+import { IPFS_PREFIX, IPFS_PROVIDER_URI } from "@/lib/utils.js";
 
 export default function Home() {
   const [tokenIds, setTokenIds] = useState([]);
   const [tokenIdToImg, setTokenIdToImg] = useState({});
 
+  const CONTRACT_ADDRESS = "0x7bdED40a489Bd6680ea0eba0A6AdAD7340a634AD";
   // Get the token Ids
   useEffect(() => {
     const getData = async () => {
@@ -24,7 +24,7 @@ export default function Home() {
     if (CONTRACT_ADDRESS !== undefined) {
       getData();
     }
-  }, []);
+  }, [CONTRACT_ADDRESS]);
 
   // Get the token URIs
   useEffect(() => {
@@ -36,7 +36,9 @@ export default function Home() {
           `/api/callBlockchain?contractAddress=${CONTRACT_ADDRESS}&method_name=tokenURI&args=[${tokenId}]`
         );
         let tokenURI = await response.text();
-        tokenURI = tokenURI.slice(1, -1); // Remove quotes at the beginning and at the end
+        tokenURI = tokenURI
+          .slice(1, -1)
+          .replace(IPFS_PREFIX, IPFS_PROVIDER_URI); // Remove quotes at the beginning and at the end
 
         if (tokenURI === "") {
           console.error(
@@ -62,7 +64,7 @@ export default function Home() {
           continue;
         }
         let json = await response.json();
-        tmp_dict[tokenId] = json.image;
+        tmp_dict[tokenId] = json.image.replace(IPFS_PREFIX, IPFS_PROVIDER_URI);
       }
       setTokenIdToImg(tmp_dict);
     };

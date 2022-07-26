@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import Collection from "@/contracts/Collection.json";
+import CollectionManager from "@/contracts/CollectionManager.json";
 import Web3 from "web3";
 import { constants } from "ethers";
 
@@ -9,12 +9,12 @@ const web3 = new Web3(
 
 export default async (req, res) => {
   const { contractAddress } = req.query;
-  const contract = new web3.eth.Contract(Collection.abi, contractAddress);
+  const contract = new web3.eth.Contract(
+    CollectionManager.abi,
+    contractAddress
+  );
 
-  const response = await contract.getPastEvents("Transfer", {
-    filter: {
-      _from: constants.AddressZero,
-    },
+  const response = await contract.getPastEvents("CollectionCreated", {
     fromBlock: 0,
   });
 

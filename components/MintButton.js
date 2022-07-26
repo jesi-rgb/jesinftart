@@ -1,61 +1,78 @@
 import { useContractFunction, useEthers } from "@usedapp/core";
-import JesiArt from "@/contracts/JesiArt.json";
-import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
-import { CONTRACT_ADDRESS } from "@/lib/utils";
+import {
+  CollectionInterface,
+  IPFS_PREFIX,
+  THUMBNAIL_FILENAME,
+  WEB_URI,
+} from "@/lib/utils";
 
 import SuccessAlert from "./SucessAlert";
 import LoadingPing from "./LoadingPing";
 import { useState, useEffect } from "react";
 
-export default function MintButton({}) {
+export default function MintButton({
+  collectionAddress,
+  seed,
+  name,
+  totalSupply,
+  description,
+  ipfsHash,
+}) {
   const { account, chainId } = useEthers();
-  // const rightNetwork =
+  // const rightNetwork = TODO
 
   const minting_tx_name = "Mint NFT";
-  const [pushJsonToIpfs, setPushJsonToIpfs] = useState(false);
+  const [mintButtonPushed, setMintButtonPushed] = useState(false);
 
   // Get contract
-  const jesiArtAbi = JesiArt.abi;
-  const jesiArtInterface = new utils.Interface(jesiArtAbi);
-  const jesiArtContract = new Contract(CONTRACT_ADDRESS, jesiArtInterface);
+  const collectionContract = new Contract(
+    collectionAddress,
+    CollectionInterface
+  );
 
   // Minting function
   const { send: mintSend, state: mintState } = useContractFunction(
-    jesiArtContract,
-    "create_ntf", // TODO change for mint() when changing contract
+    collectionContract,
+    "mint",
     { transactionName: minting_tx_name }
   );
 
-  const nftJson = {
-    name: "PUGGY",
-    description: "An amazinger Z adorable PUG pup!",
-    image:
-      "https://ipfs.io/ipfs/QmSsYRx3LpDAb1GZQm7zZ1AuHZjfbPkD6J7s9r41xu1mf8?filename=pug.png",
-    attributes: [
-      {
-        trait_type: "cuteness",
-        value: 100,
-      },
-    ],
-  };
-
   useEffect(() => {
-    const pushAndMint = async () => {
-      const ipfs_response = await fetch(
-        `/api/jsonToIpfs?stringJson=${JSON.stringify(nftJson)}`
-      );
+    const pushAndMint = async (json) => {
+      const ipfs_response = await fetch(`/api/jsonToIpfs`, {
+        method: "POST",
+        body: JSON.stringify(await json),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       let ipfs_hash = (await ipfs_response.json())["IpfsHash"];
-      let ipfs_json_uri = `https://ipfs.io/ipfs/${ipfs_hash}`;
-      mintSend(ipfs_json_uri);
+      let ipfs_json_uri = IPFS_PREFIX + ipfs_hash;
+      mintSend(account, ipfs_json_uri);
+      console.log("Nft hash:", ipfs_hash);
 
-      setPushJsonToIpfs(false);
+      setMintButtonPushed(false);
     };
-    if (pushJsonToIpfs) {
-      pushAndMint();
+    if (mintButtonPushed) {
+      let json = {
+        name: name + " #" + totalSupply,
+        description: description,
+        animation_url: IPFS_PREFIX + ipfsHash + "?seed=" + seed,
+        image: IPFS_PREFIX + ipfsHash + "/" + THUMBNAIL_FILENAME,
+        external_url:
+          WEB_URI + "/collections/" + collectionAddress + "/" + totalSupply,
+        attributes: [
+          {
+            trait_type: "Seed",
+            value: seed,
+          },
+        ],
+      };
+      pushAndMint(json);
     }
-  }, [pushJsonToIpfs]);
+  }, [mintButtonPushed]);
 
   const isMining = mintState.status === "Mining";
 
@@ -65,7 +82,7 @@ export default function MintButton({}) {
         <button
           className="text-slate-300 font-body bg-slate-800 hover:bg-slate-600 transition-colors rounded-lg px-3 py-1 border-2 border-slate-600 w-full"
           onClick={() => {
-            setPushJsonToIpfs(true);
+            setMintButtonPushed(true);
           }}
         >
           {isMining ? (

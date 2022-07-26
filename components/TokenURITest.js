@@ -1,4 +1,4 @@
-import { IPFS_PROVIDER_URI, IPFS_PREFIX } from "@/lib/utils";
+import { shrinkHash } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
@@ -9,52 +9,40 @@ import {
   MagicWandIcon,
 } from "@radix-ui/react-icons";
 
-export default function MintingPage({ collectionAddress }) {
+export default function TokenURITest({ contract, tokenId }) {
   const [ipfsData, setIpfsData] = useState(undefined);
-  const [contractURI, setContractURI] = useState(undefined);
-  const [totalSupply, setTotalSupply] = useState(undefined);
+  const [nftUri, setNftUri] = useState(undefined);
   let [seed, setSeed] = useState(getRandomInt(99999));
 
-  // Get the ipfs hash in JSON format
+  // Get the token URI in JSON format
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
-        `/api/callBlockchain?contractAddress=${collectionAddress}&method_name=contractURI`
+        `/api/callBlockchain?contractAddress=${contract}&method_name=tokenURI&args=[${tokenId}]`
       );
-      setContractURI(await response.text());
-
-      const response2 = await fetch(
-        `/api/callBlockchain?contractAddress=${collectionAddress}&method_name=totalSupply`
-      );
-      setTotalSupply((await response2.text()).slice(1, -1));
+      setNftUri(await response.text());
     };
-    if (collectionAddress !== undefined) {
+    if (contract !== undefined && tokenId !== undefined) {
       getData();
     }
-  }, [collectionAddress]);
+  }, [contract, tokenId]);
 
   // Get the JSON values form the URI obtained above
   useEffect(() => {
     const getData = async () => {
-      const token_uri_response = await fetch(
-        contractURI.replace(IPFS_PREFIX, IPFS_PROVIDER_URI).slice(1, -1)
-      );
+      const token_uri_response = await fetch(nftUri.slice(1, -1));
 
       setIpfsData(await token_uri_response.json());
     };
-    if (contractURI !== undefined) {
+    if (nftUri !== undefined) {
       getData();
     }
-  }, [contractURI]);
-
-  console.log(contractURI);
+  }, [nftUri]);
 
   let name = ipfsData?.name;
-  let symbol = ipfsData?.symbol;
   let description = ipfsData?.description;
-  let ipfs_animation = ipfsData?.p5.replace(IPFS_PREFIX, IPFS_PROVIDER_URI);
-  let maxSupply = ipfsData?.maxSupply;
-  let mintFee = ipfsData?.mintFee;
+  let img_uri = ipfsData?.image;
+  let attributes = ipfsData?.attributes;
 
   useEffect(() => {
     reloadIframe();
@@ -70,7 +58,7 @@ export default function MintingPage({ collectionAddress }) {
         {/* IMAGE TITLE and BUTTONS */}
         <div className="w-full flex-col mb-10 space-y-4 mt-14 mx-auto xl:mb-0 lg:inline-block">
           <h1 className="text-5xl xl:text-6xl font-titles text-slate-100 mx-auto">
-            {name + " (" + symbol + ")"}
+            Title
           </h1>
           {/* CONTROL BUTTONS */}
           <div className="flex flex-row w-full place-content-evenly xl:place-content-start xl:space-x-4 py-5 xl:py-0">
@@ -98,7 +86,7 @@ export default function MintingPage({ collectionAddress }) {
               <MagicWandIcon className="mt-0.5 group-hover:rotate-12 transition-transform" />
             </button>
 
-            <a href={ipfs_animation ?? "#"}>
+            <a href={img_uri ?? "#"}>
               <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
                 <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                   View on IPFS
@@ -110,8 +98,7 @@ export default function MintingPage({ collectionAddress }) {
           <div onResize={reloadIframe}>
             <CanvasScript
               url={
-                IPFS_PROVIDER_URI +
-                "QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu?seed=" +
+                "https://cloudflare-ipfs.com/ipfs/QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu?seed=" +
                 seed
               }
             />
@@ -123,32 +110,25 @@ export default function MintingPage({ collectionAddress }) {
           <div>
             <div className="text-slate-200 font-titles"> Description</div>
             <div className="text-slate-400 font-body text-sm text-justify selection:bg-slate-200 selection:text-slate-800">
-              {description}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
           </div>
 
-          {/* Mint fee */}
+          {/* PRICE */}
           <div className="flex flex-row font-body">
             <div className="flex text-slate-200 font-titles w-1/4 lg:w-screen">
-              Mint fee
+              Price
             </div>
             <div className="w-3/4 flex flex-row space-x-3 lg:w-full lg:items-end">
               <div className="w-full"></div>
-              <div className="text-slate-400">{mintFee}</div>
-              <div className="text-slate-400">MATIC</div>
-            </div>
-          </div>
-
-          {/* Minted */}
-          <div className="flex flex-row font-body">
-            <div className="flex text-slate-200 font-titles w-1/4 lg:w-screen">
-              Minted
-            </div>
-            <div className="w-3/4 flex flex-row space-x-3 lg:w-full lg:items-end">
-              <div className="w-full"></div>
-              <div className="text-slate-400">
-                {totalSupply + "/" + maxSupply}
-              </div>
+              <div className="text-slate-400">50</div>
+              <div className="text-slate-400">ETH</div>
             </div>
           </div>
 
@@ -176,18 +156,7 @@ export default function MintingPage({ collectionAddress }) {
             </form>
           </div>
           <div className="w-full">
-            {collectionAddress ? (
-              <MintButton
-                collectionAddress={collectionAddress}
-                seed={seed}
-                name={name}
-                totalSupply={totalSupply}
-                description={description}
-                ipfsHash={ipfsData?.p5.replace(IPFS_PREFIX, "")}
-              />
-            ) : (
-              <div></div>
-            )}
+            <MintButton contract={contract} />
           </div>
         </div>
       </div>

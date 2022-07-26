@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
-import PieceBody2 from "@/components/PieceBody2";
+import PieceBody3 from "@/components/PieceBody3";
 import { useRouter } from "next/router";
 
 export default function Nft({ link, slug }) {
@@ -13,7 +13,7 @@ export default function Nft({ link, slug }) {
         <meta title="description" content="" />
       </Head>
       <Layout>
-        <PieceBody2 contract={contract} tokenId={tokenId} />
+        <PieceBody3 contract={contract} tokenId={tokenId} />
       </Layout>
     </>
   );

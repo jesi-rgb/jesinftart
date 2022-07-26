@@ -26,3 +26,12 @@ html {
   background-color: rgb(30 41 59);
   scroll-behavior: smooth;
 }
+
+label, input {
+  display: block;
+}
+
+label {
+  color: inherit;
+  margin-bottom: 20px;
+}
