@@ -8,13 +8,14 @@ import { useState, useEffect } from "react";
 import { utils } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import LoadingPing from "./LoadingPing";
+import SuccessAlert from "./SucessAlert";
 
 import {
   COLLECTION_MANAGER_ADDRESS,
   APPROVED_ADDRESSES_FOR_UPLOADING,
-  // CollectionManagerContract,
-  webURI,
-  ipfs_prefix,
+  CollectionManagerContract,
+  WEB_URI,
+  IPFS_PREFIX,
 } from "@/lib/utils";
 
 export default function UploadCollection({ slug }) {
@@ -28,13 +29,6 @@ export default function UploadCollection({ slug }) {
     watch,
     formState: { errors },
   } = useForm();
-
-  const CollectionManagerAbi = CollectionManager.abi;
-  const CollectionManagerInterface = new utils.Interface(CollectionManagerAbi);
-  const CollectionManagerContract = new Contract(
-    COLLECTION_MANAGER_ADDRESS,
-    CollectionManagerInterface
-  );
 
   // Creation function
   const tx_name = "Create Collection";
@@ -50,17 +44,24 @@ export default function UploadCollection({ slug }) {
     const uploadToIpfs = async () => {
       let json = {
         name: data.Name,
+        symbol: data.Symbol,
         description: data.Description,
-        external_link: webURI,
-        p5: ipfs_prefix + data.IpfsHash,
-        image: ipfs_prefix + data.IpfsHash + "/thumbnail.png",
+        external_link: WEB_URI,
+        p5: IPFS_PREFIX + data.IpfsHash,
+        image: IPFS_PREFIX + data.IpfsHash + "/thumbnail.png",
         seller_fee_basis_points: 100,
         fee_recipient: COLLECTION_MANAGER_ADDRESS,
+        maxSupply: data.MaxSupply,
+        mintFee: data.MintFee,
       };
 
-      const ipfs_response = await fetch(
-        `/api/jsonToIpfs?stringJson=${JSON.stringify(json)}`
-      );
+      const ipfs_response = await fetch(`/api/jsonToIpfs`, {
+        method: "POST",
+        body: JSON.stringify(json),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       let collectionUriHash = (await ipfs_response.json())["IpfsHash"];
 
@@ -69,7 +70,7 @@ export default function UploadCollection({ slug }) {
         data.Symbol,
         data.Description,
         data.IpfsHash,
-        ipfs_prefix + collectionUriHash,
+        IPFS_PREFIX + collectionUriHash,
         data.MaxSupply,
         data.MintFee
       );
@@ -77,9 +78,7 @@ export default function UploadCollection({ slug }) {
       creationSend(
         data.Name,
         data.Symbol,
-        data.Description,
-        data.IpfsHash,
-        ipfs_prefix + collectionUriHash,
+        IPFS_PREFIX + collectionUriHash,
         data.MaxSupply,
         data.MintFee
       );

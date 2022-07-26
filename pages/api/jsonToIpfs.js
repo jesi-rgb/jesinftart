@@ -10,11 +10,7 @@ const pinata_client = pinata(
  * Uploads json to IPFS
  */
 export default async (req, res) => {
-  const { stringJson } = req.query;
-
-  let json = JSON.parse(stringJson);
-
-  let response = await pinata_client.pinJSONToIPFS(json);
+  let response = await pinata_client.pinJSONToIPFS(req.body);
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Cache-Control", "max-age=180000");
   res.end(JSON.stringify(response));

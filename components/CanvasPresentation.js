@@ -1,6 +1,5 @@
 import { IPFS_PROVIDER_URI, IPFS_PREFIX } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
-import { useState, useEffect } from "react";
 import React from "react";
 import CanvasScript from "./CanvasScript";
 import {
@@ -9,61 +8,13 @@ import {
   MagicWandIcon,
 } from "@radix-ui/react-icons";
 
-export default function MintingPage({ collectionAddress }) {
-  const [ipfsData, setIpfsData] = useState(undefined);
-  const [contractURI, setContractURI] = useState(undefined);
-  const [totalSupply, setTotalSupply] = useState(undefined);
-  let [seed, setSeed] = useState(getRandomInt(99999));
-
-  // Get the ipfs hash in JSON format
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(
-        `/api/callBlockchain?contractAddress=${collectionAddress}&method_name=contractURI`
-      );
-      setContractURI(await response.text());
-
-      const response2 = await fetch(
-        `/api/callBlockchain?contractAddress=${collectionAddress}&method_name=totalSupply`
-      );
-      setTotalSupply((await response2.text()).slice(1, -1));
-    };
-    if (collectionAddress !== undefined) {
-      getData();
-    }
-  }, [collectionAddress]);
-
-  // Get the JSON values form the URI obtained above
-  useEffect(() => {
-    const getData = async () => {
-      const token_uri_response = await fetch(
-        contractURI.replace(IPFS_PREFIX, IPFS_PROVIDER_URI).slice(1, -1)
-      );
-
-      setIpfsData(await token_uri_response.json());
-    };
-    if (contractURI !== undefined) {
-      getData();
-    }
-  }, [contractURI]);
-
-  console.log(contractURI);
-
-  let name = ipfsData?.name;
-  let symbol = ipfsData?.symbol;
-  let description = ipfsData?.description;
-  let ipfs_animation = ipfsData?.p5.replace(IPFS_PREFIX, IPFS_PROVIDER_URI);
-  let maxSupply = ipfsData?.maxSupply;
-  let mintFee = ipfsData?.mintFee;
-
-  useEffect(() => {
-    reloadIframe();
-  }, [seed]);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => reloadIframe());
-  }, [seed]);
-
+export default function MintingPage({
+  name,
+  symbol,
+  description,
+  seed,
+  mintFee,
+}) {
   return (
     <>
       <div className="flex flex-col items-center mx-auto max-w-xs lg:max-w-xl xl:max-w-full xl:space-y-0 xl:grid xl:grid-cols-2 xl:gap-40 xl:items-end">
