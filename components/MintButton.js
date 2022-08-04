@@ -54,7 +54,7 @@ export default function MintButton({
           await ipfs_response.json()
         );
       } else {
-        let json_ipfs_hash = (await ipfs_response.json())["IpfsHassh"];
+        let json_ipfs_hash = (await ipfs_response.json())["IpfsHash"];
         if (json_ipfs_hash === undefined) {
           console.error("Ipfs Hash is undefined");
         } else {

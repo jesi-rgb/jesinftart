@@ -1,11 +1,15 @@
 import Attribute from "./Attribute";
 import { useRouter } from "next/router";
 
-import { shrinkHash, IPFS_PROVIDER_URI, IPFS_PREFIX } from "@/lib/utils";
+import {
+  shrinkHash,
+  IPFS_PROVIDER_URI,
+  IPFS_PREFIX,
+  OPENSEA_PREFIX,
+} from "@/lib/utils";
 import { useState, useEffect } from "react";
 import React from "react";
 import CanvasScript from "./CanvasScript";
-
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 export default function PieceBody({ contract, tokenId }) {
@@ -79,6 +83,26 @@ export default function PieceBody({ contract, tokenId }) {
               <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
                 <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                   View on IPFS
+                </div>
+                <ArrowTopRightIcon className="mt-0.5 transform scale-125 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+            </a>
+          </div>
+          <div className="flex flex-row w-full place-content-evenly xl:place-content-start xl:space-x-4 py-5 xl:py-0">
+            <a href={OPENSEA_PREFIX + contract + "/" + tokenId ?? "#"}>
+              <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
+                <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
+                  View on OpenSea
+                </div>
+                <ArrowTopRightIcon className="mt-0.5 transform scale-125 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+            </a>
+          </div>
+          <div className="flex flex-row w-full place-content-evenly xl:place-content-start xl:space-x-4 py-5 xl:py-0">
+            <a href={"/collections/" + contract ?? "#"}>
+              <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
+                <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
+                  Minting place
                 </div>
                 <ArrowTopRightIcon className="mt-0.5 transform scale-125 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </div>
