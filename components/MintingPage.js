@@ -47,8 +47,6 @@ export default function MintingPage({ collectionAddress }) {
     }
   }, [contractURI]);
 
-  console.log(contractURI);
-
   let name = ipfsData?.name;
   let symbol = ipfsData?.symbol;
   let description = ipfsData?.description;
@@ -162,7 +160,6 @@ export default function MintingPage({ collectionAddress }) {
               onKeyDown={(key) => {
                 if (key.key == "Enter") {
                   setSeed(document.getElementById("inputValue").value);
-                  console.log("mierda", seed);
                 }
               }}
               //   onChange={(e) => (seed = e.target.value)}
@@ -205,7 +202,6 @@ function newSeedIframe() {
 }
 
 function reloadIframe() {
-  console.log("reloading iframe");
   var ifr = document.getElementById("iframe");
 
   ifr.src = ifr.src;

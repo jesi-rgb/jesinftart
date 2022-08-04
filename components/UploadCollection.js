@@ -1,12 +1,6 @@
-import Head from "next/head";
-import Layout from "@/components/Layout";
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useContractFunction, useEthers } from "@usedapp/core";
-import CollectionManager from "@/contracts/CollectionManager.json";
 import { useState, useEffect } from "react";
-import { utils } from "ethers";
-import { Contract } from "@ethersproject/contracts";
 import LoadingPing from "./LoadingPing";
 import SuccessAlert from "./SucessAlert";
 
