@@ -15,6 +15,13 @@ export default function MintingPage({ collectionAddress }) {
   const [totalSupply, setTotalSupply] = useState(undefined);
   let [seed, setSeed] = useState(getRandomInt(99999));
 
+  let [name, setName] = useState(undefined);
+  let [symbol, setSymbol] = useState(undefined);
+  let [description, setDescription] = useState(undefined);
+  let [ipfsAnimation, setIpfsAnimation] = useState(undefined);
+  let [maxSupply, setMaxSupply] = useState(undefined);
+  let [mintFee, setMintFee] = useState(undefined);
+
   // Get the ipfs hash in JSON format
   useEffect(() => {
     const getData = async () => {
@@ -47,15 +54,24 @@ export default function MintingPage({ collectionAddress }) {
     }
   }, [contractURI]);
 
-  let name = ipfsData?.name;
-  let symbol = ipfsData?.symbol;
-  let description = ipfsData?.description;
-  let ipfs_animation = ipfsData?.p5.replace(IPFS_PREFIX, IPFS_PROVIDER_URI);
-  let maxSupply = ipfsData?.maxSupply;
-  let mintFee = ipfsData?.mintFee;
+  useEffect(() => {
+    const getData = async () => {
+      setName(ipfsData.name);
+      setSymbol(ipfsData.symbol);
+      setDescription(ipfsData.description);
+      setIpfsAnimation(ipfsData.p5.replace(IPFS_PREFIX, IPFS_PROVIDER_URI));
+      setMaxSupply(ipfsData.maxSupply);
+      setMintFee(ipfsData.mintFee);
+    };
+    if (ipfsData !== undefined) {
+      getData();
+    }
+  }, [ipfsData]);
 
   useEffect(() => {
-    reloadIframe();
+    if (ipfsAnimation) {
+      reloadIframe();
+    }
   }, [seed]);
 
   useEffect(() => {
@@ -96,7 +112,7 @@ export default function MintingPage({ collectionAddress }) {
               <MagicWandIcon className="mt-0.5 group-hover:rotate-12 transition-transform" />
             </button>
 
-            <a href={ipfs_animation ?? "#"}>
+            <a href={ipfsAnimation ?? "#"}>
               <div className="group flex flex-row items-center space-x-1 text-slate-500 hover:text-slate-200 transition-colors duration-150">
                 <div className="font-body opacity-0 absolute right-0 top-0 xl:opacity-100 xl:relative">
                   View on IPFS
@@ -106,13 +122,11 @@ export default function MintingPage({ collectionAddress }) {
             </a>
           </div>
           <div onResize={reloadIframe}>
-            <CanvasScript
-              url={
-                IPFS_PROVIDER_URI +
-                "QmTiGR2DedqBaqgfrTHUspqurHDBLo7txpZXS5KTXUmLtu?seed=" +
-                seed
-              }
-            />
+            {ipfsAnimation ? (
+              <CanvasScript url={ipfsAnimation + "?seed=" + seed} />
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
 
@@ -173,7 +187,7 @@ export default function MintingPage({ collectionAddress }) {
             </form>
           </div>
           <div className="w-full">
-            {collectionAddress ? (
+            {ipfsData ? (
               <MintButton
                 collectionAddress={collectionAddress}
                 seed={seed}
