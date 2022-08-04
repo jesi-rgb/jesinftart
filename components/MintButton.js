@@ -49,15 +49,19 @@ export default function MintButton({
       });
 
       if ((await ipfs_response.status) == 500) {
-        console.log(
+        console.error(
           "An error happened while trying to upload JSON:",
           await ipfs_response.json()
         );
       } else {
-        let ipfs_hash = (await ipfs_response.json())["IpfsHash"];
-        let ipfs_json_uri = IPFS_PREFIX + ipfs_hash;
-        mintSend(account, ipfs_json_uri);
-        console.log("Nft hash:", ipfs_hash);
+        let json_ipfs_hash = (await ipfs_response.json())["IpfsHassh"];
+        if (json_ipfs_hash === undefined) {
+          console.error("Ipfs Hash is undefined");
+        } else {
+          let ipfs_json_uri = IPFS_PREFIX + json_ipfs_hash;
+          mintSend(account, ipfs_json_uri);
+          console.log("Nft hash:", json_ipfs_hash);
+        }
       }
 
       setMintButtonPushed(false);
@@ -77,7 +81,6 @@ export default function MintButton({
           },
         ],
       };
-      console.log(json);
       pushAndMint(json);
     }
   }, [mintButtonPushed]);
