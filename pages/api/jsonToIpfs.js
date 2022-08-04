@@ -28,6 +28,6 @@ export default async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Cache-Control", "max-age=180000");
     res.status(500);
-    res.end(error);
+    res.end(JSON.stringify({ error: String(error) }));
   }
 };
