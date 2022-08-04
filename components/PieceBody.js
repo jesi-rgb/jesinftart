@@ -6,11 +6,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import CanvasScript from "./CanvasScript";
 
-import {
-  ReloadIcon,
-  ArrowTopRightIcon,
-  MagicWandIcon,
-} from "@radix-ui/react-icons";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 export default function PieceBody({ contract, tokenId }) {
   const router = useRouter();
