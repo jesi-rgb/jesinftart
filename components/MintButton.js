@@ -40,6 +40,14 @@ export default function MintButton({
 
   useEffect(() => {
     const pushAndMint = async (json) => {
+      console.log({
+        method: "POST",
+        body: JSON.stringify(await json),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       const ipfs_response = await fetch(`/api/jsonToIpfs`, {
         method: "POST",
         body: JSON.stringify(await json),
