@@ -78,7 +78,7 @@ export default function Home() {
       <div className="text-slate-300 font-body">
         <div className="mt-12 mx-auto">
           <h1 className="text-6xl drop-shadow-xl mx-auto font-bold font-titles text-center text-slate-100 mb-10">
-            WebItOS
+            WebOtES
           </h1>
 
           <div className="flex flex-wrap gap-5 md:gap-9 xl:gap-14">
