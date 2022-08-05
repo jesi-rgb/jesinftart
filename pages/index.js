@@ -1,4 +1,4 @@
-import CarouselImage2 from "@/components/CarouselImage2";
+import CarouselImage from "@/components/CarouselImage";
 import Layout from "@/components/Layout";
 import { useState, useEffect } from "react";
 import { IPFS_PREFIX, IPFS_PROVIDER_URI } from "@/lib/utils.js";
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-5 md:gap-9 xl:gap-14">
             {Object.keys(tokenIdToImg).map((tokenId) => {
               return (
-                <CarouselImage2
+                <CarouselImage
                   key={tokenId}
                   contractAddress={CONTRACT_ADDRESS}
                   tokenId={tokenId}

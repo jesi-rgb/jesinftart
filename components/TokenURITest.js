@@ -1,4 +1,3 @@
-import { shrinkHash } from "@/lib/utils";
 import MintButton from "@/components/MintButton";
 import { useState, useEffect } from "react";
 import React from "react";
@@ -142,7 +141,6 @@ export default function TokenURITest({ contract, tokenId }) {
               onKeyDown={(key) => {
                 if (key.key == "Enter") {
                   setSeed(document.getElementById("inputValue").value);
-                  console.log("mierda", seed);
                 }
               }}
               //   onChange={(e) => (seed = e.target.value)}
@@ -174,7 +172,6 @@ function newSeedIframe() {
 }
 
 function reloadIframe() {
-  console.log("reloading iframe");
   var ifr = document.getElementById("iframe");
 
   ifr.src = ifr.src;
